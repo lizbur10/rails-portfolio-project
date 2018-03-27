@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: MyText
+  content: MyText
+  status: MyString
+  bander_id: 1
+
+two:
+  date: MyText
+  content: MyText
+  status: MyString
+  bander_id: 1

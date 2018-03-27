@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  banding_date: MyText
+  bander_id: 1
+  species_id: 1
+  report_id: 1
+
+two:
+  banding_date: MyText
+  bander_id: 1
+  species_id: 1
+  report_id: 1
