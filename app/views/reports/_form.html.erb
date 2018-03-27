@@ -1,0 +1,25 @@
+<%= form_for @report do |f| %>
+<h2><%= f.label :date %>: 
+<%= f.text_field :date %></h2>
+<h2>Add Birds Banded:</h2>
+<table>
+<th>Alpha Code</th><th>Species Name</th><th>Number Banded</th>
+<%= f.fields_for :birds do |bird| %>
+<tbody>
+    <tr>
+        <td><%= bird.text_field :code %></td>
+        <td><%= bird.text_field :species %></td>  <%# don't know how to do this%>
+        <td><%= bird.text_field :number_banded %></td>
+    </tr>
+    <%end%>
+    </tbody>
+    </table>
+<%= f.submit%>
+<%#<input type="submit" value="Save">#%>
+<% end %>
+<%#NEED TO ADD LOGIC HERE FOR APPROPRIATE REDIRECT %>
+<%##
+<form class="button" action="/birds/cancel" method="POST">
+  <input type="submit" value="Cancel">
+</form>
+%>
