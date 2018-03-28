@@ -1,6 +1,9 @@
 class ReportsController < ApplicationController
     def new
         @report = Report.new
+        @report.species.build
+        @report.species.build
+
     end
     
     def show

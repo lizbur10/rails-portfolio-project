@@ -1,19 +1,25 @@
-<%= form_for @report do |f| %>
+<%= form_for report do |f| %>
 <h2><%= f.label :date %>: 
 <%= f.text_field :date %></h2>
 <h2>Add Birds Banded:</h2>
 <table>
 <th>Alpha Code</th><th>Species Name</th><th>Number Banded</th>
-<%= f.fields_for :birds do |bird| %>
+<%= f.fields_for :species do |s| %>
 <tbody>
     <tr>
-        <td><%= bird.text_field :code %></td>
-        <td><%= bird.text_field :species %></td>  <%# don't know how to do this%>
-        <td><%= bird.text_field :number_banded %></td>
+        <td><%= s.text_field :code %></td>
+        <td><%= s.text_field :name %></td>  <%# don't know how to do this%>
+        <td><%= number_field_tag :number_banded %></td>
+        
     </tr>
     <%end%>
-    </tbody>
-    </table>
+</tbody>
+</table>
+
+
+
+
+    
 <%= f.submit%>
 <%#<input type="submit" value="Save">#%>
 <% end %>
