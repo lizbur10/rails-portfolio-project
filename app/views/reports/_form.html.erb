@@ -5,7 +5,7 @@
 <table>
 <th>Alpha Code</th><th>Species Name</th><th>Number Banded</th>
 <%= f.fields_for :species do |s| %>
-    <%= f.fields_for :birds_of_species do |bos|%>
+    <%= s.fields_for :birds_of_species do |bos|%>
     <tbody>
         <tr>
             <td><%= s.text_field :code %></td>
