@@ -2,24 +2,19 @@ class ReportsController < ApplicationController
     def new
         @report = Report.new
         @report.species.build
+        @report.birds_of_species.build
     end
 
     def create
 
         report = Report.new(report_params)
+        binding.pry
 
         # report.bander = current_bander
         report.bander_id = 1 ## hard coded for now
-        number_banded = params[:number_banded].to_i
-        (number_banded-1).times do 
-            report.birds.build(:species => report.species.last)
-        end
-        report.birds.each do |bird|
-            bird.bander = report.bander
-            bird.banding_date = report.date
-        end
+        report.birds_of_species.last.bander = report.bander
+        report.birds_of_species.last.banding_date = report.date
 
-        binding.pry
         report.save
         redirect_to edit_report_path(report)
     end
@@ -32,6 +27,8 @@ class ReportsController < ApplicationController
 
     def edit
         @report = Report.find(params[:id])
+        @report.species.build
+        @report.birds_of_species.build
     end
 
     def update
@@ -41,7 +38,11 @@ class ReportsController < ApplicationController
     end
 
     def report_params
-        params.require(:report).permit(:date, :species_attributes => [:code, :name])
+        params.require(:report).permit(
+            :date, 
+            :species_attributes => [:code, :name], 
+            :birds_of_species_attributes => [:number_banded]
+            )
     end
 
     def bird_params
