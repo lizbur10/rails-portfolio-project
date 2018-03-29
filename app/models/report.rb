@@ -9,4 +9,10 @@ class Report < ApplicationRecord
         # Time.parse(self.appointment_datetime).strftime('%B %d, %Y at %H:%M')
     end
 
+    def species_attributes=(species_attributes)
+        species_attributes.values.each do |species_attribute|
+            new_species = Species.find_or_create_by(:name => species_attribute[:name])
+            self.species << new_species
+        end
+    end
 end
