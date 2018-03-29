@@ -1,5 +1,5 @@
 class Bander < ApplicationRecord
     has_many :reports
-    has_many :birds
-    has_many :species, through: :birds    
+    has_many :birds_of_species, :class_name => "BirdsOfSpecies"
+    has_many :species, through: :birds_of_species
 end

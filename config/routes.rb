@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :species
   resources :reports
-  resources :birds
+  resources :birds_of_species
   resources :banders
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/', to: 'site#index'

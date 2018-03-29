@@ -5,13 +5,15 @@
 <table>
 <th>Alpha Code</th><th>Species Name</th><th>Number Banded</th>
 <%= f.fields_for :species do |s| %>
-<tbody>
-    <tr>
-        <td><%= s.text_field :code %></td>
-        <td><%= s.text_field :name %></td>  <%# don't know how to do this%>
-        <td><%= number_field_tag :number_banded %></td>
-        
-    </tr>
+    <%= f.fields_for :birds_of_species do |bos|%>
+    <tbody>
+        <tr>
+            <td><%= s.text_field :code %></td>
+            <td><%= s.text_field :name %></td>  <%# don't know how to do this%>
+            <td><%= bos.number_field :number_banded %></td>
+            
+        </tr>
+    <%end%>
 <%end%>
 </tbody>
 </table>
