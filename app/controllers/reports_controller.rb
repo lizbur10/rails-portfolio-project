@@ -8,8 +8,7 @@ class ReportsController < ApplicationController
     def create
         report = Report.new(report_params)
         session[:date] = report.date
-        # report.bander = current_bander
-        report.bander_id = 1 ## hard coded for now
+        report.bander = Bander.find(session[:bander_id])
         report.birds_of_species.last.bander = report.bander
         report.birds_of_species.last.banding_date = report.date
         report.birds_of_species.last.number_banded = report_params[:species_attributes]["0"][:birds_of_species_attributes]["0"][:number_banded]
@@ -29,6 +28,11 @@ class ReportsController < ApplicationController
     end
 
     def index
+        if params[:bander_id]
+            @reports = Bander.find(params[:bander_id]).reports
+        else
+            @reports = Report.all
+        end
     end
 
 

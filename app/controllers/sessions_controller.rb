@@ -2,9 +2,7 @@ class SessionsController < ApplicationController
 
     def new
         if !!session[:bander_id]
-            redirect_to #logged in bander page
-        else
-            @bander = Bander.new
+            redirect_to bander_reports_path(Bander.find(session[:bander_id]))
         end
     end
 
@@ -12,6 +10,8 @@ class SessionsController < ApplicationController
         @bander = Bander.find_by(:name => params[:name])
         return head(:forbidden) unless @bander.authenticate(params[:password])
         session[:bander_id] = @bander.id
+
+        redirect_to bander_reports_path(@bander) 
     end
 
     def destroy
