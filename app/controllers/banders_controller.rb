@@ -5,6 +5,9 @@ class BandersController < ApplicationController
     end
 
     def new
+        def create 
+            bander = Bander.create(bander_params)
+        end
     end
     
     def show

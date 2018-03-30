@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
 
     def create
         report = Report.new(report_params)
-
+        session[:date] = report.date
         # report.bander = current_bander
         report.bander_id = 1 ## hard coded for now
         report.birds_of_species.last.bander = report.bander
@@ -19,23 +19,31 @@ class ReportsController < ApplicationController
         redirect_to edit_report_path(report)
     end
     
-    def show
-    end
-
-    def index
-    end
-
     def edit
         @report = Report.find(params[:id])
         @report.species.build
         @report.birds_of_species.build
     end
 
-    def update
+    def show
     end
 
-    def preview
+    # def index
+    # end
+
+
+    def update
+        report = Report.find(params[:id])
+        binding.pry
+        report.update(report_params)
+
+        redirect_to edit_report_path(report)
     end
+
+    # def preview
+    # end
+
+    private
 
     def report_params
         params.require(:report).permit(
