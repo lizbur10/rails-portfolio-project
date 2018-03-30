@@ -1,0 +1,8 @@
+<h1>Bander Login</h1>
+<%= form_for @bander do |f| %>
+    <%= f.label :name %>: 
+    <%= f.text_field :name %><br>
+    <%= f.label :password %>: 
+    <%= f.text_field :password %><br>
+    <%= f.submit "Log In"%>
+<% end %>
