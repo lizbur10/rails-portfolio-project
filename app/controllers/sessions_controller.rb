@@ -16,12 +16,12 @@ class SessionsController < ApplicationController
 
     def destroy
         session.delete :bander_id
-        redirect_to login_path
+        redirect_to root_path
     end
 
 
-    ## THIS IS GOING TO MOVE
-    def logged_in
-        @reports = Report.all    # placeholder for scoped resource - draft vs. posted
-    end
+    # ## THIS IS GOING TO MOVE
+    # def logged_in
+    #     @reports = Report.all    # placeholder for scoped resource - draft vs. posted
+    # end
 end

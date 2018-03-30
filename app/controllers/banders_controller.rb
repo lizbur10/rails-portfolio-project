@@ -11,7 +11,7 @@ class BandersController < ApplicationController
         bander = Bander.new(bander_params)
         if bander.save
             session[:bander_id] = bander.id
-            redirect_to sessions_logged_in_path
+            redirect_to bander_reports_path(bander)
         end
     end
 

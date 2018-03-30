@@ -28,8 +28,8 @@ class ReportsController < ApplicationController
     def show
     end
 
-    # def index
-    # end
+    def index
+    end
 
 
     def update
