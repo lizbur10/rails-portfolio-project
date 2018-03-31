@@ -5,11 +5,14 @@ class ReportsController < ApplicationController
     end
 
     def create
-        report = Report.new(report_params)
+        report = Report.create
+        report.update(report_params)
         binding.pry
         session[:date] = report.date
+        #if report.save
         report.save
-        redirect_to edit_report_path(report)
+            redirect_to edit_report_path(report)
+        # else/end
     end
     
     def edit
