@@ -1,5 +1,9 @@
 module ReportsHelper
-    def format_report_datetime
-        self.date.strftime('%B %d, %Y')
+    # def report_datetime_formatted
+    #     Time.parse(session[:date]).strftime('%B %d, %Y')
+    # end
+
+    def report_datetime_formatted(date)
+        Time.parse(date).strftime('%B %d, %Y')
     end
 end

@@ -10,7 +10,6 @@ class Report < ApplicationRecord
     end
 
     def species_attributes=(species_attributes)
-        binding.pry
         species_attributes.values.each do |species_attribute|
             new_species = Species.find_or_create_by(:name => species_attribute[:name])
             self.species << new_species

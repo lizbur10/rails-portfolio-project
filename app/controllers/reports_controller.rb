@@ -12,7 +12,6 @@ class ReportsController < ApplicationController
         report.birds_of_species.last.bander = report.bander
         report.birds_of_species.last.banding_date = report.date
         report.birds_of_species.last.number_banded = report_params[:species_attributes]["0"][:birds_of_species_attributes]["0"][:number_banded]
-        binding.pry
 
         report.save
         redirect_to edit_report_path(report)
