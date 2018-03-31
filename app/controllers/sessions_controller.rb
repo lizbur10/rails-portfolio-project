@@ -19,9 +19,4 @@ class SessionsController < ApplicationController
         redirect_to root_path
     end
 
-
-    # ## THIS IS GOING TO MOVE
-    # def logged_in
-    #     @reports = Report.all    # placeholder for scoped resource - draft vs. posted
-    # end
 end

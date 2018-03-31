@@ -1,16 +1,18 @@
 <%= form_for report do |f| %>
 <h2><%= f.label :date %>: 
 <%= f.date_field :date %></h2>
+<%= f.hidden_field :bander_id, :value => current_bander.id %>
 <h2>Add Birds Banded:</h2>
 <table>
 <th>Alpha Code</th><th>Species Name</th><th>Number Banded</th>
-<%= f.fields_for :species do |s| %>
-    <%= s.fields_for :birds_of_species do |bos|%>
+<%= f.fields_for :birds_of_species do |b| %>
+    <%= b.hidden_field :bander_id, :value => current_bander.id %>
+    <%= b.fields_for :species do |s|%>
     <tbody>
         <tr>
             <td><%= s.text_field :code %></td>
             <td><%= s.text_field :name %></td>  <%# don't know how to do this%>
-            <td><%= bos.number_field :number_banded %></td>
+            <td><%= b.number_field :number_banded %></td>
             
         </tr>
     <%end%>

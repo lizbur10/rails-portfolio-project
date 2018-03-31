@@ -1,18 +1,13 @@
 class ReportsController < ApplicationController
     def new
         @report = Report.new
-        @report.species.build
-        @report.birds_of_species.build
+        @report.birds_of_species.build.build_species
     end
 
     def create
         report = Report.new(report_params)
+        binding.pry
         session[:date] = report.date
-        report.bander = Bander.find(session[:bander_id])
-        report.birds_of_species.last.bander = report.bander
-        report.birds_of_species.last.banding_date = report.date
-        report.birds_of_species.last.number_banded = report_params[:species_attributes]["0"][:birds_of_species_attributes]["0"][:number_banded]
-
         report.save
         redirect_to edit_report_path(report)
     end
@@ -51,12 +46,10 @@ class ReportsController < ApplicationController
     def report_params
         params.require(:report).permit(
             :date, 
-            :species_attributes => [:code, :name, 
-            :birds_of_species_attributes => [:number_banded]]
+            :bander_id, 
+            :birds_of_species_attributes => [:bander_id, :number_banded,
+                :species_attributes => [:code, :name]]
             )
     end
 
-    def bird_params
-
-    end 
 end
