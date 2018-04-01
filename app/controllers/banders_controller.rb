@@ -16,8 +16,9 @@ class BandersController < ApplicationController
     end
 
     def show
-        if params[:bander_id]
-            @reports = Bander.find(params[:bander_id]).reports
+        binding.pry
+        if params[:id]
+            @reports = Bander.find(params[:id]).reports
         else
             redirect_to login_path
         end

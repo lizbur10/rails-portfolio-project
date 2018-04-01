@@ -11,5 +11,15 @@
 
   <body>
     <%= yield %>
+
+    <footer>
+    <% if !!current_bander%>
+      <%= form_tag logout_path do %>
+          <%= submit_tag "Log out"%>
+      <% end %>
+    <%end%>
+
+    </footer>
   </body>
+  
 </html>
