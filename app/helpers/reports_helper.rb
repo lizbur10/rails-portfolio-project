@@ -4,6 +4,6 @@ module ReportsHelper
     # end
 
     def report_datetime_formatted(date)
-        Time.parse(date).strftime('%B %d, %Y')
+        date.strftime('%B %d')
     end
 end

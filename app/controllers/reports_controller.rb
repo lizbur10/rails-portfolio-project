@@ -17,8 +17,15 @@ class ReportsController < ApplicationController
     
     def edit
         @report = Report.find(params[:id])
-        @report.species.build
-        @report.birds_of_species.build
+        @report.birds_of_species.build.build_species
+    end
+
+    def update
+        report = Report.find(params[:id])
+        binding.pry
+        report.update(report_params)
+
+        redirect_to edit_report_path(report)
     end
 
     def show
@@ -33,14 +40,6 @@ class ReportsController < ApplicationController
     end
 
 
-    def update
-        report = Report.find(params[:id])
-        binding.pry
-        report.update(report_params)
-
-        redirect_to edit_report_path(report)
-    end
-
     # def preview
     # end
 
@@ -48,6 +47,7 @@ class ReportsController < ApplicationController
 
     def report_params
         params.require(:report).permit(
+            :id,
             :date, 
             :bander_id, 
             :birds_of_species_attributes => [:bander_id, :number_banded,
