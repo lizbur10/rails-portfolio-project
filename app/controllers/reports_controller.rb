@@ -7,7 +7,6 @@ class ReportsController < ApplicationController
     def create
         report = Report.create
         report.update(report_params)
-        binding.pry
         session[:date] = report.date
         #if report.save
         report.save
@@ -22,7 +21,6 @@ class ReportsController < ApplicationController
 
     def update
         report = Report.find(params[:id])
-        binding.pry
         report.update(report_params)
 
         redirect_to edit_report_path(report)

@@ -16,7 +16,6 @@ class BandersController < ApplicationController
     end
 
     def show
-        binding.pry
         if params[:id]
             @reports = Bander.find(params[:id]).reports
         else
