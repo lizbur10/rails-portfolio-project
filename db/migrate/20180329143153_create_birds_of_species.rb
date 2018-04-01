@@ -1,7 +1,6 @@
 class CreateBirdsOfSpecies < ActiveRecord::Migration[5.1]
   def change
     create_table :birds_of_species do |t|
-      t.datetime :banding_date
       t.integer :number_banded
       t.integer :bander_id
       t.integer :species_id

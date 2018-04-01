@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330122901) do
+ActiveRecord::Schema.define(version: 20180329143153) do
 
   create_table "banders", force: :cascade do |t|
-    t.text "name"
+    t.string "name"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
   end
 
   create_table "birds_of_species", force: :cascade do |t|
-    t.datetime "banding_date"
     t.integer "number_banded"
     t.integer "bander_id"
     t.integer "species_id"
@@ -32,15 +31,15 @@ ActiveRecord::Schema.define(version: 20180330122901) do
   create_table "reports", force: :cascade do |t|
     t.datetime "date"
     t.text "content"
-    t.text "status", default: "draft"
+    t.string "status", default: "draft"
     t.integer "bander_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "species", force: :cascade do |t|
-    t.text "code"
-    t.text "name"
+    t.string "code"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
