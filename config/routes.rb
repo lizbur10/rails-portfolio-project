@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # resources :species
   resources :reports
   resources :birds_of_species, only: [:create, :update, :destroy]
-  resources :banders, only: [:index, :new, :create] do
+  resources :banders, only: [:index, :new, :create, :show] do
     resources :reports, only: [:index, :show]
   end
 

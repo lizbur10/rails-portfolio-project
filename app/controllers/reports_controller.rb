@@ -32,11 +32,9 @@ class ReportsController < ApplicationController
     end
 
     def index
-        if params[:bander_id]
-            @reports = Bander.find(params[:bander_id]).reports
-        else
-            @reports = Report.all
-        end
+        @reports = Report.all
+        # split this out by draft vs. posted
+        # only show drafts for current_bander
     end
 
 

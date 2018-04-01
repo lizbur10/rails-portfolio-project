@@ -16,6 +16,12 @@ class BandersController < ApplicationController
     end
 
     def show
+        if params[:bander_id]
+            @reports = Bander.find(params[:bander_id]).reports
+        else
+            redirect_to login_path
+        end
+
     end
 
     def edit

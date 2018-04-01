@@ -1,0 +1,23 @@
+<h1>Welcome <%=current_bander.name%>!</h1>
+
+<ul class="flush-left">
+<li><h2><%= link_to "Start a new report", new_report_path %></h2></li>
+<%if @reports.length > 0%> <%# scope = draft %>
+    <li><h2>Continue working on a draft report:</h2>
+    <ul>
+        <%@reports.each do |report|%>
+            <li><h3><%= link_to report.format_report_datetime, edit_report_path(report) %></h3></li>
+        <%end%>
+    </ul></li>
+<%end%>
+<li><h2>View or edit a report you have posted:</h2><%# scope = posted %>
+    <ul>
+        <li><h3>COMING SOON</h3></li>
+    </ul>
+</li></ul>
+<br>
+<% ## Add actions to view/edit account information and logout%>
+
+<%= form_tag logout_path do %>
+    <%= submit_tag "Log out"%>
+<% end %>
