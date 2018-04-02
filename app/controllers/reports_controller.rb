@@ -1,4 +1,7 @@
 class ReportsController < ApplicationController
+before_action :get_report
+skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
+
     def new
         @report = Report.new
         @report.birds_of_species.build.build_species
@@ -15,18 +18,19 @@ class ReportsController < ApplicationController
     end
     
     def edit
-        @report = Report.find(params[:id])
+        # @report = Report.find(params[:id])
         @report.birds_of_species.build.build_species
     end
 
     def update
-        report = Report.find(params[:id])
-        report.update(report_params)
+        # report = Report.find(params[:id])
+        @report.update(report_params)
 
         redirect_to edit_report_path(report)
     end
 
     def show
+        # @report = Report.find(params[:id])
     end
 
     def index
@@ -40,8 +44,9 @@ class ReportsController < ApplicationController
     end
 
 
-    # def preview
-    # end
+    def preview
+        # @report = Report.find(params[:id])
+    end
 
     private
 
@@ -55,4 +60,7 @@ class ReportsController < ApplicationController
             )
     end
 
+    def get_report
+        @report = Report.find(params[:id])
+    end
 end

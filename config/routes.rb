@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   post '/reports/:id/add_writeup' => 'reports#add_writeup'
+  get '/reports/:id/preview' => 'reports#preview'
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

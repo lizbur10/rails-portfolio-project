@@ -22,7 +22,9 @@
     
 <%= f.submit "Continue" %>
 <br><br>
-<%= render partial: 'reports/buttons/add_writeup_button', locals: {f: f, report: report} %>
+<%= render partial: 'reports/buttons/add_writeup_button', locals: {report: report} %>
+<br><br>
+<%= render partial: 'reports/buttons/preview_report_button', locals: {report: report} %>
 
 <% end %>
 
