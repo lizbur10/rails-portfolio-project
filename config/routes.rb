@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :reports, only: [:index, :show]
   end
 
+  post '/reports/:id/add_writeup' => 'reports#add_writeup'
+
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   post '/logout' => 'sessions#destroy'

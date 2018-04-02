@@ -10,7 +10,6 @@ class Report < ApplicationRecord
     end
 
     def birds_of_species_attributes=(birds_of_species_attributes)
-        binding.pry
         if birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"][:species_attributes][:name] != "" && !self.species.find_by(:name => birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"][:species_attributes][:name])
             self.birds_of_species.build(birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"])
         end

@@ -10,16 +10,13 @@
   </head>
 
   <body>
+  <header>
+    <% if !!current_bander%>
+      <%= link_to("Log out", logout_path, method: :post) %>
+    <%end%>
+  </header>
     <%= yield %>
 
-    <footer>
-    <% if !!current_bander%>
-      <%= form_tag logout_path do %>
-          <%= submit_tag "Log out"%>
-      <% end %>
-    <%end%>
-
-    </footer>
   </body>
   
 </html>

@@ -35,6 +35,10 @@ class ReportsController < ApplicationController
         # only show drafts for current_bander
     end
 
+    def add_writeup
+        session[:show_writeup] = true
+    end
+
 
     # def preview
     # end
