@@ -1,4 +1,6 @@
 class BandersController < ApplicationController
+    before_action :login_required
+
 
     def index
         @banders = Bander.all

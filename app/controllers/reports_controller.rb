@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-before_action :get_report
+before_action :get_report, :login_required
 skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
 
     def new
@@ -63,4 +63,5 @@ skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
     def get_report
         @report = Report.find(params[:id])
     end
+
 end
