@@ -5,6 +5,6 @@ class Bander < ApplicationRecord
     has_secure_password
 
     def to_param
-        name
+        self.name
     end
 end

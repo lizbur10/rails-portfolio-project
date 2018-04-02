@@ -57,7 +57,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
     end
 
     def get_report
-        @report = Report.find(params[:id])
+        @report = Report.find_by_date_slug(params[:id]) ## make this a class method in report.rb
     end
 
 end

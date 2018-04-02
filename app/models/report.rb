@@ -2,11 +2,17 @@ class Report < ApplicationRecord
     belongs_to :bander
     has_many :birds_of_species, :class_name => "BirdsOfSpecies"
     has_many :species, through: :birds_of_species
-    #accepts_nested_attributes_for :birds_of_species
 
-    def format_report_datetime
-        self.date.strftime('%B %d, %Y')
-        # Time.parse(self.appointment_datetime).strftime('%B %d, %Y at %H:%M')
+    def self.find_by_date_slug(date_slug)
+        Report.find_by(:date => DateTime.strptime(date_slug, '%b%d'))
+    end
+
+    def to_param
+        slugify_date(date)
+    end
+
+    def slugify_date(date)
+        date.strftime('%B%d')
     end
 
     def birds_of_species_attributes=(birds_of_species_attributes)
