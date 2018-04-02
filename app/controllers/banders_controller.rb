@@ -18,7 +18,6 @@ class BandersController < ApplicationController
     end
 
     def show
-        binding.pry
         if params[:id]
             @reports = Bander.find_by(:name => params[:id]).reports
         else

@@ -4,7 +4,7 @@ class Report < ApplicationRecord
     has_many :species, through: :birds_of_species
 
     def self.find_by_date_slug(date_slug)
-        Report.find_by(:date => DateTime.strptime(date_slug, '%b%d'))
+        self.where(:date => DateTime.strptime(date_slug, '%b%d')).first
     end
 
     def to_param
@@ -12,7 +12,7 @@ class Report < ApplicationRecord
     end
 
     def slugify_date(date)
-        date.strftime('%B%d')
+        date.strftime('%b%d')
     end
 
     def birds_of_species_attributes=(birds_of_species_attributes)
