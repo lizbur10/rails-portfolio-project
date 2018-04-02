@@ -18,19 +18,16 @@ skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
     end
     
     def edit
-        # @report = Report.find(params[:id])
         @report.birds_of_species.build.build_species
     end
 
     def update
-        # report = Report.find(params[:id])
         @report.update(report_params)
 
-        redirect_to edit_report_path(report)
+        redirect_to edit_report_path(@report)
     end
 
     def show
-        # @report = Report.find(params[:id])
     end
 
     def index
@@ -45,7 +42,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
 
 
     def preview
-        # @report = Report.find(params[:id])
     end
 
     private
