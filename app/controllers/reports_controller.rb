@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 before_action :get_report, :login_required
-skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
+skip_before_action :get_report, only: [:new, :create, :index]
 
     def new
         @report = Report.new
@@ -23,6 +23,9 @@ skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
 
     def update
         @report.update(report_params)
+        if params[:commit] == "Add a Writeup"
+            session[:show_writeup_field] = true
+        end
 
         redirect_to edit_report_path(@report)
     end
@@ -35,11 +38,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :add_writeup]
         # split this out by draft vs. posted
         # only show drafts for current_bander
     end
-
-    def add_writeup
-        session[:show_writeup] = true
-    end
-
 
     def preview
         

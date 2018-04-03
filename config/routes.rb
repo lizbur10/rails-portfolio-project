@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     resources :reports, only: [:index, :show]
   end
 
-  post '/reports/:id/add_writeup' => 'reports#add_writeup'
   get '/reports/:id/preview' => 'reports#preview', as: :report_preview
 
   get '/login' => 'sessions#new'
