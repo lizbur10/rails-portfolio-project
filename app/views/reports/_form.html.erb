@@ -23,14 +23,16 @@
 <%= f.submit "Continue" %>
 <br><br>
 <% if session[:show_writeup_field] %>
-    <%= render partial: 'reports/writeup_field', locals: {report: report}%>
+    <%= render partial: 'reports/writeup_field', locals: {f: f, report: report}%>
 <% else %>
     <%= f.submit "Add a Writeup" %>
 <% end %>
 <br><br>
-<%= render partial: 'reports/buttons/preview_report_button', locals: {report: report} %>
 
 <% end %>
+
+<%= render partial: 'reports/buttons/preview_report_button', locals: {report: report} %>
+
 
 
 <%#NEED TO ADD LOGIC HERE FOR APPROPRIATE REDIRECT %>

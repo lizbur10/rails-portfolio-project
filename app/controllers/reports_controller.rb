@@ -49,7 +49,8 @@ skip_before_action :get_report, only: [:new, :create, :index]
         params.require(:report).permit(
             :id,
             :date, 
-            :bander_id, 
+            :bander_id,
+            :content,
             :birds_of_species_attributes => [:bander_id, :number_banded,
                 :species_attributes => [:code, :name]]
             )

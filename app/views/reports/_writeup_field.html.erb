@@ -1,3 +1,3 @@
 <h3>Writeup:</h3>
-<%= text_area_tag 'writeup', nil, cols: 100, rows: 10 %><br>
-<%= submit_tag "Save writeup"%>
+<%= f.text_area :content, cols: 100, rows: 10 %><br>
+<%= f.submit "Save writeup"%>
