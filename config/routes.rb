@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get '/reports/:id/preview' => 'reports#preview', as: :report_preview
+  post '/reports/:id/post_report' => 'reports#post_report', as: :post_report
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

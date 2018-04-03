@@ -40,7 +40,12 @@ skip_before_action :get_report, only: [:new, :create, :index]
     end
 
     def preview
-        
+    end
+
+    def post_report
+        @report.update(:status => "posted")
+
+        redirect_to bander_path(@report.bander) 
     end
 
     private
