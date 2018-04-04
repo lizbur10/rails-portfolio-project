@@ -44,6 +44,7 @@ skip_before_action :get_report, only: [:new, :create, :index]
 
     def post_report
         @report.update(:status => "posted")
+        session[:show_writeup_field] = false
 
         redirect_to bander_path(@report.bander) 
     end

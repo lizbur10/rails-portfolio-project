@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
 
     def destroy
         session.delete :bander_id
+        
         redirect_to root_path
     end
 
