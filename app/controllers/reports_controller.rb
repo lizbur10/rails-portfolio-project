@@ -3,7 +3,7 @@ before_action :get_report, :login_required
 skip_before_action :get_report, only: [:new, :create, :index]
 
     def new
-        @report = Report.new(bander_id: session[:bander_id])
+        @report = Report.new(bander_id: params[:bander_id])
         @report.birds_of_species.build.build_species
     end
 
@@ -13,7 +13,7 @@ skip_before_action :get_report, only: [:new, :create, :index]
         session[:date] = report.date
         #if report.save
         report.save
-            redirect_to edit_report_path(report)
+            redirect_to edit_bander_report_path(report.bander, report)
         # else/end
     end
     

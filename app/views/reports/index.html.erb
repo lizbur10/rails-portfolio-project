@@ -1,6 +1,6 @@
 <h1>Posted Reports - Spring 2018</h1>
 <ul>
 <%@reports.each do |report| %>
-    <li><%= link_to report_datetime_formatted(report.date), report_path(report)%></li>
+    <li><%= link_to report_datetime_formatted(report.date), bander_report_path(current_bander, report)%></li>
 <%end%>
 </ul>
