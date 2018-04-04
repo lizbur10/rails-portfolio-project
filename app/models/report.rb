@@ -8,7 +8,7 @@ class Report < ApplicationRecord
     end
 
     def to_param
-        slugify_date(date)
+        slugify_date(date) if self.date
     end
 
     def slugify_date(date)

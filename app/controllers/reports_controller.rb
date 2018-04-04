@@ -3,7 +3,7 @@ before_action :get_report, :login_required
 skip_before_action :get_report, only: [:new, :create, :index]
 
     def new
-        @report = Report.new
+        @report = Report.new(bander_id: session[:bander_id])
         @report.birds_of_species.build.build_species
     end
 
