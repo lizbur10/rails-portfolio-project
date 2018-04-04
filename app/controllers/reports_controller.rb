@@ -25,9 +25,10 @@ skip_before_action :get_report, only: [:new, :create, :index]
         @report.update(report_params)
         if params[:commit] == "Add a Writeup"
             session[:show_writeup_field] = true
+        elsif
+            params[:commit] == "Save writeup"
         end
-
-        redirect_to edit_report_path(@report)
+        redirect_to edit_bander_report_path(@report.bander, @report)
     end
 
     def show

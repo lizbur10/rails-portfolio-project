@@ -2,13 +2,13 @@ Rails.application.routes.draw do
   get 'site/index'
 
   # resources :species
-  resources :reports
+  resources :reports, only: [:create, :update]
   resources :birds_of_species, only: [:create, :update, :destroy]
   resources :banders, only: [:index, :new, :show, :edit, :update] do
-    resources :reports, only: [:show, :index, :new]
+    resources :reports, only: [:show, :index, :new, :edit]
   end
 
-  get '/banders/:bander_id/reports/:id/preview' => 'reports#/preview', as: :preview_bander_report
+  get '/banders/:bander_id/reports/:id/preview' => 'reports#preview', as: :preview_bander_report
   post '/reports/:id/post_report' => 'reports#post_report', as: :post_report
 
   get '/login' => 'sessions#new'
