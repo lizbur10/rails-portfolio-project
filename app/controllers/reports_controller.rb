@@ -2,6 +2,10 @@ class ReportsController < ApplicationController
 before_action :get_report, :login_required
 skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
 
+    def index
+        @reports = Report.all
+    end
+
     def new
         bander = Bander.find_by_slug(params[:bander_id])
         @report = bander.reports.build

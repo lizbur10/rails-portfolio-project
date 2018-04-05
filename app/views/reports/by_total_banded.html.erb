@@ -1,7 +1,8 @@
+<h1>Daily Reports by Number of Birds Banded</h1>
 <table>
 <tbody>
-<tr><th>Date</ht><th>Posted by</ht><th>Number Banded</ht></tr>
-<% @reports.each do |report| %>
+<tr><th>Date</ht><th>Posted by</ht><th>Birds Banded</ht></tr>
+<% @reports.posted.each do |report| %>
 <tr>
     <td><%= link_to report_datetime_formatted(report.date), edit_bander_report_path(current_bander, report) %></td>
     <td><%= report.bander.name %></td>
