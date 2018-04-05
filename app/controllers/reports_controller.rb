@@ -3,8 +3,10 @@ before_action :get_report, :login_required
 skip_before_action :get_report, only: [:new, :create, :index]
 
     def new
-        @report = Report.new(bander_id: params[:bander_id])
+        bander = Bander.find_by_slug(params[:bander_id])
+        @report = bander.reports.build
         @report.birds_of_species.build.build_species
+        session[:show_writeup_field] = false
     end
 
     def create

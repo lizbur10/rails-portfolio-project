@@ -7,4 +7,8 @@ class Bander < ApplicationRecord
     def to_param
         self.name
     end
+
+    def self.find_by_slug(slug)
+        self.where(name: slug).first
+    end
 end
