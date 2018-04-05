@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 before_action :get_report, :login_required
-skip_before_action :get_report, only: [:new, :create, :index]
+skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
 
     def new
         bander = Bander.find_by_slug(params[:bander_id])
@@ -50,6 +50,10 @@ skip_before_action :get_report, only: [:new, :create, :index]
         session[:show_writeup_field] = false
 
         redirect_to bander_path(@report.bander) 
+    end
+
+    def by_total_banded
+        @reports = Report.by_total_banded
     end
 
     private
