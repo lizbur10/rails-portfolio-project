@@ -82,6 +82,15 @@ input.button.main {
   border-radius: 5px;
 }
 
+#error_explanation {
+  color: red;
+}
+
+div.field_with_errors {
+  display: inline-block;
+}
+
+
 
 /* END FORMS & INPUT */
 
@@ -118,3 +127,4 @@ td input[type="number"] {
 }
 
 /* END TABLES */
+

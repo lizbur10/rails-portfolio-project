@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
     def new
+        @bander = Bander.new
         if !!session[:bander_id]
             redirect_to bander_path(Bander.find(session[:bander_id]))
         end
