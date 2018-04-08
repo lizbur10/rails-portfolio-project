@@ -8,23 +8,31 @@ class SessionsController < ApplicationController
     end
 
     def create
-        if request.env["omniauth.auth"] # Google sign in
+        if request.env["omniauth.auth"]
             if @bander = Bander.find_by(:name => request.env["omniauth.auth"]["info"]["first_name"])
                 session[:bander_id] = @bander.to_param
 
                 redirect_to bander_path(@bander)                 
             else
                 # Account not found message
-                render login_path
+                @bander = Bander.new
+                @bander.valid?
+                render 'new'
             end
         else
-            @bander = Bander.find_by(:name => params[:name]) # regular sign in
-            if @bander && @bander.authenticate(params[:password])
-                session[:bander_id] = @bander.to_param
+            if @bander = Bander.find_by(:name => params[:name])
+                if @bander.authenticate(params[:password])
+                    session[:bander_id] = @bander.to_param
 
-                redirect_to bander_path(@bander) 
+                    redirect_to bander_path(@bander) 
+                else
+                    @bander.errors.add(:password, ": incorrect password")
+                    render 'new'
+                end
             else
-                render login_path
+                @bander = Bander.new(:name => params[:name], :password => params[:password])
+                @bander.valid?
+                render 'new'
             end
         end
     end

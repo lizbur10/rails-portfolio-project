@@ -10,10 +10,6 @@ class Report < ApplicationRecord
         self.joins(:birds_of_species).order("SUM(number_banded) desc").group("report_id")
     end
 
-    def self.find_by_date_slug(date_slug)
-        self.where(:date => DateTime.strptime(date_slug, '%b%d')).first
-    end
-
     def total_banded
         sum = 0
         self.birds_of_species.each do |b|
@@ -30,16 +26,20 @@ class Report < ApplicationRecord
         date.strftime('%b%d')
     end
 
+    def self.find_by_date_slug(date_slug)
+        self.where(:date => DateTime.strptime(date_slug, '%b%d')).first
+    end
+
+
     def birds_of_species_attributes=(birds_of_species_attributes)
-        species_name = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"][:species_attributes][:name]
-        if species_name != "" && !self.species.find_by(:name => species_name)
+        species_name_from_params = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"][:species_attributes][:name]
+        if species_name_from_params != "" && !self.species.find_by(:name => species_name_from_params)
             self.birds_of_species.build(birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]) ## First call to species validate method here
         end
         self.save ## second call to species validate method here
         birds_of_species_attributes.each do |bosa|
             if bosa[1]["species_attributes"]["name"] != ""
                 this_species_name = bosa[1]["species_attributes"]["name"]
-                binding.pry
                 if found_species = self.species.find_by(:name => this_species_name)
                     this_bird_of_species = found_species.birds_of_species.first
                     if bosa[1]["number_banded"].to_i != this_bird_of_species.number_banded
@@ -51,4 +51,7 @@ class Report < ApplicationRecord
         end
     end
 
+    # def check_species
+    #     if !self.species
+    # end
 end

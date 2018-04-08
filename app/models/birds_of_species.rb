@@ -5,8 +5,9 @@ class BirdsOfSpecies < ApplicationRecord
     validates :number_banded, presence: true
 
     def species_attributes=(species_attributes)
-        new_species = Species.find_or_create_by(:name => species_attributes[:name], :code => species_attributes[:code])
-        self.species = new_species
+        if new_species = Species.find_by(:name => species_attributes[:name], :code => species_attributes[:code])
+            self.species = new_species
+        end
     end
 
 end

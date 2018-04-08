@@ -14,13 +14,13 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     end
 
     def create
-        report = Report.create
-        report.update(report_params)
-        session[:date] = report.date
-        #if report.save
-        report.save
-            redirect_to edit_bander_report_path(report.bander, report)
-        # else/end
+        @report = Report.new
+        session[:date] = @report.date
+        if @report.update(report_params)
+            redirect_to edit_bander_report_path(report.bander, @report)
+        else
+           render 'new'
+        end
     end
     
     def edit
@@ -28,13 +28,12 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     end
 
     def update
-        @report.update(report_params)
-        if params[:commit] == "Add a Writeup"
-            session[:show_writeup_field] = true
-        elsif
-            params[:commit] == "Save writeup"
+        session[:show_writeup_field] = true if params[:commit] == "Add a Writeup"
+        if @report && @report.update(report_params)
+            redirect_to edit_bander_report_path(@report.bander, @report)
+        else
+            render 'edit'
         end
-        redirect_to edit_bander_report_path(@report.bander, @report)
     end
 
     def show

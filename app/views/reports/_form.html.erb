@@ -8,7 +8,6 @@
 <%= f.fields_for :birds_of_species do |b| %>
     <%= b.hidden_field :bander_id, :value => current_bander.id %>
     <%= b.fields_for :species do |s|%>
-    <tbody>
         <tr>
             <td><%= s.text_field :code %></td>
             <td><%= s.text_field :name %></td>
@@ -17,7 +16,6 @@
         </tr>
     <%end%>
 <%end%>
-</tbody>
 </table>
     
 <%= f.submit "Continue" %>

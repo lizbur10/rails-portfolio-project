@@ -2,7 +2,7 @@
 <h1>Bander Login</h1>
 <%= form_tag login_path do %>
     <label>Name: </label>
-    <%= text_field_tag :name, value = nil, :required => true %><br>
+    <%= text_field_tag :name, @bander.name, :required => true %><br>
     <label>Password: </label> 
     <%= password_field_tag :password, value = nil, :required => true %><br>
     <%= submit_tag "Log In"%>
