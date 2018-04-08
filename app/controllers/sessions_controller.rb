@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
 
                     redirect_to bander_path(@bander) 
                 else
-                    @bander.errors.add(:password, ": incorrect password")
+                    @bander.errors.add(:password, "incorrect")
                     render 'new'
                 end
             else
