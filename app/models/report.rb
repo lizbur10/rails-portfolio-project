@@ -2,6 +2,8 @@ class Report < ApplicationRecord
     belongs_to :bander
     has_many :birds_of_species, :class_name => "BirdsOfSpecies"
     has_many :species, through: :birds_of_species
+    
+    validate :new_species_is_valid
 
     scope :draft, -> {where(status: 'draft')}
     scope :posted, -> {where(status: 'posted')}
@@ -32,11 +34,15 @@ class Report < ApplicationRecord
 
 
     def birds_of_species_attributes=(birds_of_species_attributes)
-        species_name_from_params = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"][:species_attributes][:name]
-        if species_name_from_params != "" && !self.species.find_by(:name => species_name_from_params)
-            self.birds_of_species.build(birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]) ## First call to species validate method here
+        new_birds_of_species_info = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]
+        new_species_info = new_birds_of_species_info[:species_attributes]
+        new_species_name = new_species_info[:name]
+        @new_species = Species.new(new_species_info)
+        if !self.species.find_by(:name => new_species_name)
+            self.birds_of_species.build(new_birds_of_species_info) ## First call to species validate method here
+            
         end
-        self.save ## second call to species validate method here
+        self.valid?
         birds_of_species_attributes.each do |bosa|
             if bosa[1]["species_attributes"]["name"] != ""
                 this_species_name = bosa[1]["species_attributes"]["name"]
@@ -51,7 +57,12 @@ class Report < ApplicationRecord
         end
     end
 
-    # def check_species
-    #     if !self.species
-    # end
+    def new_species_is_valid
+        if !@new_species.valid?
+            errors.add(:species, "name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
+            errors.add(:species, "code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
+
+        end
+    end
+
 end

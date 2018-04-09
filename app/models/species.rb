@@ -18,6 +18,5 @@ class Species < ApplicationRecord
         else
             errors.add(:code, "does not exist in the database") 
         end
-        binding.pry
     end
 end
