@@ -34,13 +34,10 @@ class Report < ApplicationRecord
 
 
     def birds_of_species_attributes=(birds_of_species_attributes)
-        new_birds_of_species_info = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]
-        new_species_info = new_birds_of_species_info[:species_attributes]
-        new_species_name = new_species_info[:name]
-        @new_species = Species.new(new_species_info)
-        if !self.species.find_by(:name => new_species_name)
-            self.birds_of_species.build(new_birds_of_species_info) ## First call to species validate method here
-            
+        new_bird_info(birds_of_species_attributes)
+        @new_species = Species.new(@new_species_info)
+        if !self.species.find_by(:name => @new_species_name)
+            self.birds_of_species.build(@new_birds_of_species_info) 
         end
         self.valid?
         birds_of_species_attributes.each do |bosa|
@@ -63,6 +60,12 @@ class Report < ApplicationRecord
             errors.add(:species, "alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
             errors[:birds_of_species].clear
         end
+    end
+
+    def new_bird_info(birds_of_species_attributes)
+        @new_birds_of_species_info = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]
+        @new_species_info = @new_birds_of_species_info[:species_attributes]
+        @new_species_name = @new_species_info[:name]
     end
 
 end

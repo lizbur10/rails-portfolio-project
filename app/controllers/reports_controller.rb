@@ -17,7 +17,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         @report = Report.new
         session[:date] = @report.date
         if @report.update(report_params)
-            redirect_to edit_bander_report_path(report.bander, @report)
+            redirect_to edit_bander_report_path(@report.bander, @report)
         else
            render 'new'
         end
