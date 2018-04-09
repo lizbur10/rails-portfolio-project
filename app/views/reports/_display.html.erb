@@ -1,0 +1,15 @@
+<h1>Birds Banded Report for <%= report_datetime_formatted(report.date) %></h1>
+<h2>Posted by: <%=current_bander.name%></h2>
+<%if (report.content && @report.content != "") %>
+    <p><%=report.content%></p>
+<%end%>
+
+<br><br>
+<table class="display">
+<tr><th>Alpha Code</th><th>Species</th><th>Number Banded</th></tr>
+<% report.birds_of_species.each do |bos| %>
+<tr><td><%=bos.species.code%></td><td><%=bos.species.name%></td><td><%=bos.number_banded%></td>
+</tr>
+<%end%>
+</table>
+
