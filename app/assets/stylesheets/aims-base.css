@@ -121,7 +121,7 @@ tr td:nth-child(3), tr td:nth-child(4) {
   text-align: center;
 }
 
-tr:nth-child(even) {
+.display tr:nth-child(even) {
   background-color: #f2f2f2; 
 }
 

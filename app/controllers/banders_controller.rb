@@ -25,7 +25,8 @@ class BandersController < ApplicationController
 
     def show
         if !!current_bander
-            @reports = @current_bander.reports
+            @draft_reports = @current_bander.reports.draft
+            @posted_reports = @current_bander.reports.posted
         else
             redirect_to login_path
         end
