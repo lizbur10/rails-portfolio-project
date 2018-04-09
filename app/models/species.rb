@@ -7,16 +7,19 @@ class Species < ApplicationRecord
     validate :code_and_name_are_valid
 
     def code_and_name_are_valid
-        if Species.find_by(:code => code.upcase)
-            if Species.find_by(:name => name)
-                if Species.find_by(:code => code.upcase) != Species.find_by(:name => name)
-                    errors.add(:name, "and alpha code do not match")
-                end
-            else
-                errors.add(:name, "does not exist in the database")
-            end
-        else
-            errors.add(:code, "does not exist in the database") 
+        errors.add(:code, "does not exist in the database") unless find_species_by_code
+        errors.add(:name, "does not exist in the database") unless find_species_by_name
+        if @species_by_code && @species_by_name
+            errors.add(:name, "and alpha code do not match") unless @species_by_code == @species_by_name
         end
     end
+
+    def find_species_by_code
+        @species_by_code ||= Species.find_by(:code => code.upcase)
+    end
+
+    def find_species_by_name
+        @species_by_name ||= Species.find_by(:name => name)
+    end
+
 end
