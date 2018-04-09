@@ -60,8 +60,8 @@ class Report < ApplicationRecord
     def new_species_is_valid
         if !@new_species.valid?
             errors.add(:species, "name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
-            errors.add(:species, "code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
-
+            errors.add(:species, "alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
+            errors[:birds_of_species].clear
         end
     end
 
