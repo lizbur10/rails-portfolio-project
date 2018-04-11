@@ -3,6 +3,7 @@ class Report < ApplicationRecord
     has_many :birds_of_species, :class_name => "BirdsOfSpecies"
     has_many :species, through: :birds_of_species
     
+    validates :date, uniqueness: true
     validate :new_species_is_valid
     # validate :new_birds_of_species_is_valid
 

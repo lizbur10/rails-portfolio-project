@@ -8,8 +8,8 @@
     <%= b.hidden_field :bander_id, :value => current_bander.id %>
     <%= b.fields_for :species do |s|%>
         <tr>
-            <td><%= s.text_field :code %></td>
-            <td><%= s.text_field :name %></td>
+            <td class="<%= 'field_with_errors' if code_error_exists(report) && last_record?(b, report) %>"><%= s.text_field :code %></td>
+            <td class="<%= 'field_with_errors' if name_error_exists(report) && last_record?(b, report) %>"><%= s.text_field :name %></td>
             <td><%= b.number_field :number_banded %></td>
             
         </tr>

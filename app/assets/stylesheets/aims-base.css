@@ -86,11 +86,11 @@ input.button.main {
   color: red;
 }
 
-div.field_with_errors {
+.field_with_errors {
   display: inline-block;
 }
 
-div.field_with_errors input {
+.field_with_errors input {
   border: 2px red solid;
 }
 
