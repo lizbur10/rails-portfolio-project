@@ -2,7 +2,7 @@ class BirdsOfSpecies < ApplicationRecord
     belongs_to :bander
     belongs_to :report
     belongs_to :species
-    # validates :number_banded, numericality: {:greater_than => 0}
+    validates :number_banded, numericality: {:greater_than => 0}
     validates :number_banded, presence: true
 
     def species_attributes=(species_attributes)

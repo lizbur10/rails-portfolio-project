@@ -1,18 +1,15 @@
 module ReportsHelper
-    # def report_datetime_formatted
-    #     Time.parse(session[:date]).strftime('%B %d, %Y')
-    # end
 
     def report_datetime_formatted(date)
         date.strftime('%B %d')
     end
 
     def code_error_exists(report)
-        report.errors[:species].last && report.errors[:species].last.include?("code")
+        !report.errors[:species].empty? && report.errors[:species].any? { | str | str.include?("code") }
     end
 
     def name_error_exists(report)
-        report.errors[:species].first && report.errors[:species].first.include?("name")
+        !report.errors[:species].empty? && report.errors[:species].any? { | str | str.include?("name") }
     end
 
     def last_record?(bird_of_species, report)

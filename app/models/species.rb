@@ -5,6 +5,8 @@ class Species < ApplicationRecord
     has_many :reports, through: :birds_of_species
 
     validate :code_and_name_are_valid
+    validates :code, presence: true
+    validates :name, presence: true
 
     def code_and_name_are_valid
         errors.add(:code, "does not exist in the database") unless find_species_by_code
