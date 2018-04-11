@@ -5,7 +5,7 @@ class Report < ApplicationRecord
     
     validates :date, uniqueness: true
     validate :new_species_is_valid
-    # validate :new_birds_of_species_is_valid
+    validate :new_bird_of_species_is_valid
 
     scope :draft, -> {where(status: 'draft')}
     scope :posted, -> {where(status: 'posted')}
@@ -39,16 +39,16 @@ class Report < ApplicationRecord
         get_new_bird_info(birds_of_species_attributes)
         @new_species = Species.new(@new_species_info)
         if !self.species.find_by(:name => @new_species_name)
-            self.birds_of_species.build(@new_birds_of_species_info) 
+            @new_bird_of_species = self.birds_of_species.build(@new_birds_of_species_info)
         end
         self.valid?
         birds_of_species_attributes.each do |bosa|
             if bosa[1]["species_attributes"]["name"] != ""
                 this_species_name = bosa[1]["species_attributes"]["name"]
                 if found_species = self.species.find_by(:name => this_species_name)
-                    this_bird_of_species = found_species.birds_of_species.first
-                    if bosa[1]["number_banded"].to_i != this_bird_of_species.number_banded
-                        this_bird_of_species.number_banded = bosa[1]["number_banded"].to_i
+                    @this_bird_of_species = found_species.birds_of_species.first
+                    if bosa[1]["number_banded"].to_i != @this_bird_of_species.number_banded
+                        @this_bird_of_species.number_banded = bosa[1]["number_banded"].to_i
                         this_bird_of_species.save
                     end
                 end
@@ -58,17 +58,17 @@ class Report < ApplicationRecord
 
     def new_species_is_valid
         if !@new_species.valid?
-            errors.add(:species, "name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
-            errors.add(:species, "alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
+            errors.add(:species, ": name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
+            errors.add(:species, ": alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
         end
     end
 
-    # def new_birds_of_species_is_valid
-    #     if !@new_species.valid?
-    #         errors.add(:species, "name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
-    #         errors.add(:species, "alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
-    #     end
-    # end
+    def new_bird_of_species_is_valid
+        if !@new_bird_of_species.valid?
+            errors.add(:species, ": number banded #{@new_bird_of_species.errors[:number_banded].first}") if @new_bird_of_species.errors[:number_banded].first
+            errors[:birds_of_species].clear
+        end
+    end
 
     def get_new_bird_info(birds_of_species_attributes)
         @new_birds_of_species_info = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]
