@@ -4,6 +4,7 @@ class Report < ApplicationRecord
     has_many :species, through: :birds_of_species
     
     validate :new_species_is_valid
+    # validate :new_birds_of_species_is_valid
 
     scope :draft, -> {where(status: 'draft')}
     scope :posted, -> {where(status: 'posted')}
@@ -34,7 +35,7 @@ class Report < ApplicationRecord
 
 
     def birds_of_species_attributes=(birds_of_species_attributes)
-        new_bird_info(birds_of_species_attributes)
+        get_new_bird_info(birds_of_species_attributes)
         @new_species = Species.new(@new_species_info)
         if !self.species.find_by(:name => @new_species_name)
             self.birds_of_species.build(@new_birds_of_species_info) 
@@ -58,11 +59,17 @@ class Report < ApplicationRecord
         if !@new_species.valid?
             errors.add(:species, "name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
             errors.add(:species, "alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
-            errors[:birds_of_species].clear
         end
     end
 
-    def new_bird_info(birds_of_species_attributes)
+    # def new_birds_of_species_is_valid
+    #     if !@new_species.valid?
+    #         errors.add(:species, "name #{@new_species.errors[:name].first}") if @new_species.errors[:name].first
+    #         errors.add(:species, "alpha code #{@new_species.errors[:code].first}") if @new_species.errors[:code].first
+    #     end
+    # end
+
+    def get_new_bird_info(birds_of_species_attributes)
         @new_birds_of_species_info = birds_of_species_attributes[:"#{birds_of_species_attributes.length-1}"]
         @new_species_info = @new_birds_of_species_info[:species_attributes]
         @new_species_name = @new_species_info[:name]

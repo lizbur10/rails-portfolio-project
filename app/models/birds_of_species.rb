@@ -7,6 +7,8 @@ class BirdsOfSpecies < ApplicationRecord
     def species_attributes=(species_attributes)
         if new_species = Species.find_by(:name => species_attributes[:name], :code => species_attributes[:code].upcase)
             self.species = new_species
+        else
+            self.species = Species.new(:name => species_attributes[:name], :code => species_attributes[:code].upcase)
         end
     end
 

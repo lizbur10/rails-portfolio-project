@@ -14,7 +14,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     end
 
     def create
-        @report = Report.new
+        @report = Report.new(:bander_id => current_bander.id)
         session[:date] = @report.date
         if @report.update(report_params)
             redirect_to edit_bander_report_path(@report.bander, @report)
@@ -67,8 +67,8 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
             :date, 
             :bander_id,
             :content,
-            :birds_of_species_attributes => [:bander_id, :number_banded,
-                :species_attributes => [:code, :name]]
+            :birds_of_species_attributes => [:bander_id, :number_banded, :id,
+                :species_attributes => [:code, :name, :id]]
             )
     end
 
