@@ -3,7 +3,7 @@ class Bander < ApplicationRecord
     has_many :birds_of_species #, :class_name => "BirdsOfSpecies"
     has_many :species, through: :birds_of_species
     has_secure_password
-    validate :account_exists
+    # validate :account_exists
 
     def to_param
         self.name

@@ -32,7 +32,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         if @report && @report.update(report_params)
             redirect_to edit_bander_report_path(@report.bander, @report)
         else
-            
             render 'edit'
         end
     end

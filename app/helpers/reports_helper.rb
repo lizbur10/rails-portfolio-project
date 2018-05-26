@@ -4,6 +4,7 @@ module ReportsHelper
         date.strftime('%B %d')
     end
 
+    #Combine code_error_exists and name_error_exists into one method?
     def code_error_exists(report)
         !report.errors[:species].empty? && report.errors[:species].any? { | str | str.include?("code") }
     end
