@@ -14,8 +14,8 @@ class BandersController < ApplicationController
     def create 
         @bander = Bander.new(bander_params)
         if @bander.save
-            session[:bander_id] = bander.id
-            redirect_to bander_reports_path(@bander)
+            session[:bander_id] = @bander.to_param
+            redirect_to bander_path(@bander)
         else
 
             render new_bander_path
