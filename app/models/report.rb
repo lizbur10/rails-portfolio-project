@@ -38,6 +38,7 @@ class Report < ApplicationRecord
     def birds_of_species_attributes=(birds_of_species_attributes)
         get_new_bird_info(birds_of_species_attributes)
         if all_fields_blank?
+            self.errors.clear
             return
         else
             @new_species = Species.new(@new_species_info)
@@ -55,8 +56,6 @@ class Report < ApplicationRecord
                             @this_bird_of_species.save
                         end
                     end
-                elsif bosa[1]["species_attributes"]["name"] == "" && bosa[1]["species_attributes"]["code"] == "" && bosa[1]["number_banded"] == ""
-                    self.errors.clear
                 end
             end
         end
