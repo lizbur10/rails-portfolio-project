@@ -7,7 +7,7 @@ $(function() {
                 'date': "2018-05-27", 
                 'birds_of_species_attributes': {
                     '0': {
-                        'bander_id': "7", //HARD CODED FOR NOW
+                        'bander_id': $("#report_birds_of_species_attributes_0_bander_id").val(),
                         'species_attributes': {
                             'code': $("#report_birds_of_species_attributes_0_species_attributes_code").val(), 
                             'name': $("#report_birds_of_species_attributes_0_species_attributes_name").val()
