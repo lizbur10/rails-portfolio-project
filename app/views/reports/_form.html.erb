@@ -1,4 +1,4 @@
-<%= form_for report do |f| %>
+<%= form_for(report, :url => bander_reports_path(bander, report)) do |f| %>
 <h2><%= f.label :date %>: 
 <%= f.date_field :date %></h2>
 <h2>Add Birds Banded:</h2>
