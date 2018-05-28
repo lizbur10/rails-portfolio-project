@@ -4,7 +4,8 @@ $(function() {
         data = {
             'authenticity_token': $("input[name = 'authenticity_token']").val(),
             'report': {
-                'date': "2018-05-27", 
+                'date': $("#report_date").val(), 
+                'bander_id': $("#report_birds_of_species_attributes_0_bander_id").val(),
                 'birds_of_species_attributes': {
                     '0': {
                         'bander_id': $("#report_birds_of_species_attributes_0_bander_id").val(),
