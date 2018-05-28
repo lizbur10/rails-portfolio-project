@@ -13,15 +13,17 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         session[:show_writeup_field] = false
     end
 
-    # def create
-    #     @report = Report.new(:bander_id => current_bander.id)
-    #     session[:date] = @report.date
-    #     if @report.update(report_params)
-    #         redirect_to edit_bander_report_path(@report.bander, @report)
-    #     else
-    #        render 'new'
-    #     end
-    # end
+    def create
+        @report = Report.new(:bander_id => current_bander.id)
+        if @report.update(report_params)
+            session[:date] = @report.date
+            @banding_record =@report.birds_of_species.last
+            render "birds_of_species/show", :layout => false
+            # redirect_to edit_bander_report_path(@report.bander, @report)
+        else
+           render 'new'
+        end
+    end
     
     def edit
         @report.birds_of_species.build.build_species
@@ -37,12 +39,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     # end
 
     def show
-    end
-
-    def index
-        @reports = Report.all
-        # split this out by draft vs. posted
-        # only show drafts for current_bander
     end
 
     def preview

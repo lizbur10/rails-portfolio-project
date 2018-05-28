@@ -3,7 +3,7 @@
 <%= f.date_field :date %></h2>
 <h2>Add Birds Banded:</h2>
 <table>
-<th>Alpha Code</th><th>Species Name</th><th>Number Banded</th>
+<tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
 <%= f.fields_for :birds_of_species do |b| %>
     <%= b.hidden_field :bander_id, :value => current_bander.id %>
     <%= b.fields_for :species do |s|%>

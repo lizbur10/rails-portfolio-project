@@ -23,7 +23,7 @@ $(function() {
             url: this.form.action,
             data: data, 
             success: function(response) {
-                debugger;
+                $("tr:last-child").before(response);
             }
         })
         e.preventDefault();
