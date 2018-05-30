@@ -11,6 +11,13 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         @report = @bander.reports.build
         @report.birds_of_species.build.build_species
         session[:show_writeup_field] = false
+        ##Automatically enters the next date after the most recent report
+        if !session[:date]
+            binding.pry
+            if Report.all.length > 0 ## &CURRENT SEASON
+                @report.date = Report.all.map{|r| r.date}.max + 1.day
+            end
+        end
     end
 
     def create
