@@ -13,7 +13,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         session[:show_writeup_field] = false
         ##Automatically enters the next date after the most recent report
         if !session[:date]
-            binding.pry
             if Report.all.length > 0 ## &CURRENT SEASON
                 @report.date = Report.all.map{|r| r.date}.max + 1.day
             end
@@ -25,7 +24,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         if @report.update(report_params)
             session[:date] = @report.date
             @banding_record =@report.birds_of_species.last
-            render "birds_of_species/show", :layout => false
+            render "reports/edit", :layout => false
             # redirect_to edit_bander_report_path(@report.bander, @report)
         else
            render 'new'
@@ -39,6 +38,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     # def update
     #     session[:show_writeup_field] = true if params[:commit] == "Add a Writeup"
     #     if @report && @report.update(report_params)
+    #     render "birds_of_species/show", :layout => false
     #         redirect_to edit_bander_report_path(@report.bander, @report)
     #     else
     #         render 'edit'
