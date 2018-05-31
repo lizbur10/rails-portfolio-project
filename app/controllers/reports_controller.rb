@@ -9,7 +9,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     def new
         @bander = Bander.find_by_slug(params[:bander_id])
         @report = @bander.reports.build
-        @report.birds_of_species.build.build_species
         session[:show_writeup_field] = false
         ##Automatically enters the next date after the most recent report
         if !session[:date]
@@ -22,17 +21,24 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
     def create
         @report = Report.new(:bander_id => current_bander.id)
         if @report.update(report_params)
-            session[:date] = @report.date
-            @banding_record =@report.birds_of_species.last
-            render "reports/edit", :layout => false
+            session[:date] ||= @report.date
+            # @banding_record =@report.birds_of_species.last
+            # render "reports/edit", :layout => false
             # redirect_to edit_bander_report_path(@report.bander, @report)
+            render 'full_form', :layout => false
         else
            render 'new'
         end
     end
+
+    def full_form
+        @bander = Bander.find_by_slug(params[:bander_id])
+        @report.birds_of_species.build.build_species
+
+    end
     
     def edit
-        @report.birds_of_species.build.build_species
+        # @report.birds_of_species.build.build_species
     end
 
     # def update

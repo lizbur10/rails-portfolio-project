@@ -1,7 +1,6 @@
 <%= form_for([bander, report]) do |f| %>
-<div id="select_date">
+    <%= f.hidden_field :bander_id, :value => current_bander.id %>
     <h2><%= f.label :date, :value => "Enter the Report Date:   " %>
     <%= f.date_field :date %></h2>
     <%= f.submit "Continue" %>
-</div>
 <% end %>

@@ -6,6 +6,26 @@ $(function() {
             'report': {
                 'date': $("#report_date").val(), 
                 'bander_id': $("#report_birds_of_species_attributes_0_bander_id").val(),
+            }
+        }
+        $.ajax({
+            method: "POST",
+            url: this.form.action,
+            data: data, 
+            success: function(response) {
+                $("#form_body").text(response);
+            }
+        })
+        e.preventDefault();
+    });
+
+
+    $("input[value='Add More']").on("click", function(e) {
+        data = {
+            'authenticity_token': $("input[name = 'authenticity_token']").val(),
+            'report': {
+                'date': $("#report_date").val(), 
+                'bander_id': $("#report_birds_of_species_attributes_0_bander_id").val(),
                 'birds_of_species_attributes': {
                     '0': {
                         'bander_id': $("#report_birds_of_species_attributes_0_bander_id").val(),
@@ -19,7 +39,7 @@ $(function() {
             }
         }
         $.ajax({
-            method: "POST",
+            method: "PATCH",
             url: this.form.action,
             data: data, 
             success: function(response) {
