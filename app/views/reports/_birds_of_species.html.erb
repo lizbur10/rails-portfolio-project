@@ -1,6 +1,3 @@
-<%= form_for([bander, report]) do |f| %>
-<h2><%= f.label :date, :value => "Select the Report Date: " %></br>
-<%= f.date_field :date %></h2>
 <h2>Add Birds Banded:</h2>
 <table>
 <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
@@ -17,7 +14,7 @@
 <%end%>
 </table>
 
-<%= f.submit "Continue" %>
+<%= f.submit "Add More" %>
 <br><br>
 <% if session[:show_writeup_field] %>
     <%= render partial: 'reports/writeup_field', locals: {f: f, report: report}%>
