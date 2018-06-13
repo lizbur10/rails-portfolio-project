@@ -10,11 +10,12 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         @bander = Bander.find_by_slug(params[:bander_id])
         @report = @bander.reports.build
         session[:show_writeup_field] = false
-        ##Automatically enters the next date after the most recent report
-        if !session[:date]
-            if Report.all.length > 0 ## &CURRENT SEASON
-                @report.date = Report.all.map{|r| r.date}.max + 1.day
-            end
+        ##Automatically enters either the next date after the most recent report
+        #or the current date
+        if Report.all.length > 0 ## &CURRENT SEASON
+            @report.date = Report.all.map{|r| r.date}.max + 1.day
+        else
+            @report.date = Time.now
         end
     end
 
@@ -25,7 +26,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
             # @banding_record =@report.birds_of_species.last
             # render "reports/edit", :layout => false
             # redirect_to edit_bander_report_path(@report.bander, @report)
-            render 'full_form', :layout => false
+            render 'full_form'
         else
            render 'new'
         end
