@@ -39,7 +39,8 @@ class SessionsController < ApplicationController
 
     def destroy
         session.delete :bander_id
-        
+        session.delete :date
+                
         redirect_to root_path
     end
 

@@ -1,5 +1,5 @@
 <%= form_for([current_bander, @report]) do |f| %>
-    <h2>Report for: <%= @report.date %></h2>
+    <h2>Report for: <%= report_datetime_formatted(@report.date) %></h2>
 
     <h2>Add Birds Banded:</h2>
     <table>
