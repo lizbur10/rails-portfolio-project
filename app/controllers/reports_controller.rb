@@ -25,8 +25,8 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
             session[:date] ||= @report.date
             # @banding_record =@report.birds_of_species.last
             # render "reports/edit", :layout => false
-            # redirect_to edit_bander_report_path(@report.bander, @report)
-            render 'full_form'
+            redirect_to bander_report_path(@report.bander, @report)
+            # render 'full_form'
         else
            render 'new'
         end
@@ -42,17 +42,21 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         # @report.birds_of_species.build.build_species
     end
 
-    # def update
-    #     session[:show_writeup_field] = true if params[:commit] == "Add a Writeup"
-    #     if @report && @report.update(report_params)
-    #     render "birds_of_species/show", :layout => false
-    #         redirect_to edit_bander_report_path(@report.bander, @report)
-    #     else
-    #         render 'edit'
-    #     end
-    # end
+    def update
+        session[:show_writeup_field] = true if params[:commit] == "Add a Writeup"
+        binding.pry
+        if @report && @report.update(report_params)
+            render "birds_of_species/show", :layout => false
+            binding.pry
+            # redirect_to edit_bander_report_path(@report.bander, @report)
+        else
+            render 'edit'
+        end
+    end
 
     def show
+        @bander = Bander.find_by_slug(params[:bander_id])
+        @report.birds_of_species.build.build_species
     end
 
     def preview
