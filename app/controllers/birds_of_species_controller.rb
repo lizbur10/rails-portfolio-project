@@ -3,4 +3,14 @@ class BirdsOfSpeciesController < ApplicationController
     
     def new
     end
+
+    def create
+        @bos = BirdsOfSpecies.new
+        if @bos.update(bos_params)
+            binding.pry
+        else
+        #    render 'new'
+        end
+    end
+
 end

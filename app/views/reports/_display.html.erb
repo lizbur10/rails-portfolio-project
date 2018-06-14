@@ -1,4 +1,4 @@
-<h1>Birds Banded Report for <%= report_datetime_formatted(report.date) %></h1>
+<h1>Birds Banded Report for:  <%= report_datetime_formatted(report.date) %></h1>
 <h2>Posted by: <%=current_bander.name%></h2>
 <%if (report.content && @report.content != "") %>
     <p><%=report.content%></p>
