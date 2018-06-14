@@ -2,14 +2,15 @@
 <h2>Posted by: <%=current_bander.name%></h2>
 <%if (report.content && @report.content != "") %>
     <p><%=report.content%></p>
-<%end%>
+<% end %>
 
 <br><br>
 <table class="display">
 <tr><th>Alpha Code</th><th>Species</th><th>Number Banded</th></tr>
 <% report.birds_of_species.each do |bos| %>
-<tr><td><%=bos.species.code%></td><td><%=bos.species.name%></td><td><%=bos.number_banded%></td>
-</tr>
+    <tr><td><%=bos.species.code%></td><td><%=bos.species.name%></td><td><%=bos.number_banded%></td></tr>
 <%end%>
 </table>
-
+<% if !session[:show_writeup_field] %>
+    <%= render partial: 'reports/buttons/add_writeup_button', locals: {report: @report} %>
+<% end %>
