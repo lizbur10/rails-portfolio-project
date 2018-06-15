@@ -1,4 +1,4 @@
-$(function() {
+// $(function() {
 
     // $("input[value='Continue']").on("click", function(e) {
     //     data = {

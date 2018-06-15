@@ -32,12 +32,6 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         end
     end
 
-    def full_form
-        @bander = Bander.find_by_slug(params[:bander_id])
-        @report.birds_of_species.build.build_species
-
-    end
-    
     def edit
         # @report.birds_of_species.build.build_species
     end
