@@ -1,0 +1,7 @@
+<% @banding_records.each do |banding_record|%>
+<tr>
+    <td><%= banding_record.species.code %></td>
+    <td><%= banding_record.species.name %></td>
+    <td><%= banding_record.number_banded %></td>
+</tr>
+<% end %>

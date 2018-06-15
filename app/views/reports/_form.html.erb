@@ -3,6 +3,7 @@
     <h2>Add Birds Banded:</h2>
     <table>
     <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
+    <%= render 'birds_of_species/birds_of_species' %>
     <%= form_for(:birds_of_species, :url => birds_of_species_index_path) do |f| %>
         <%= f.hidden_field :report_id, :value => @report.id %>
         <%= f.hidden_field :bander_id, :value => current_bander.id %>
