@@ -12,7 +12,7 @@
   <body>
   <header>
     <% if !!@current_bander%>
-      <%= link_to("Log out", logout_path, method: :post) %>
+      <p><%= link_to("Log out", logout_path, method: :post) %></p>
     <%end%>
   </header>
     <%= yield %>

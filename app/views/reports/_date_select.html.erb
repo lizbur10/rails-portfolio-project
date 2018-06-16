@@ -4,3 +4,6 @@
     <%= f.date_field :date %></h2>
     <%= f.submit "Continue" %>
 <% end %>
+<%= form_tag(bander_path(bander), method: :get) do %>
+    <%= submit_tag "Cancel"%>
+<% end %>
