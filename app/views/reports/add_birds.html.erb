@@ -1,3 +1,8 @@
 <%= link_to("Return to home page", bander_path, method: :get) %>
+<h2>Report for: <%= report_datetime_formatted(@report.date) %></h2>
 
-<%= render 'form', report: @report %>
+<h2>Add Birds Banded:</h2>
+<table class="display">
+    <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
+    <%= render 'birds_of_species/birds_of_species' %>
+    <%= render 'form', report: @report %>
