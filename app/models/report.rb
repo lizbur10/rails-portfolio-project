@@ -10,17 +10,17 @@ class Report < ApplicationRecord
     scope :draft, -> {where(status: 'draft')}
     scope :posted, -> {where(status: 'posted')}
 
-    def self.by_total_banded
-        self.joins(:birds_of_species).order("SUM(number_banded) desc").group("report_id")
-    end
+    # def self.by_total_banded
+    #     self.joins(:birds_of_species).order("SUM(number_banded) desc").group("report_id")
+    # end
 
-    def total_banded
-        sum = 0
-        self.birds_of_species.each do |b|
-            sum += b.number_banded
-        end
-        sum
-    end
+    # def total_banded
+    #     sum = 0
+    #     self.birds_of_species.each do |b|
+    #         sum += b.number_banded
+    #     end
+    #     sum
+    # end
 
     def to_param
         slugify_date(date) if self.date

@@ -65,9 +65,9 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         redirect_to bander_path(@report.bander) 
     end
 
-    def by_total_banded
-        @reports = Report.by_total_banded
-    end
+    # def by_total_banded
+    #     @reports = Report.by_total_banded
+    # end
 
     private
 
