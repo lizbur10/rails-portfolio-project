@@ -25,7 +25,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
             session[:date] ||= @report.date
             # @banding_record =@report.birds_of_species.last
             # render "reports/edit", :layout => false
-            redirect_to bander_report_path(@report.bander, @report)
+            redirect_to add_birds_path(@report.bander, @report)
             # render 'full_form'
         else
            render 'new'
@@ -49,7 +49,7 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         end
     end
 
-    def show
+    def add_birds
         @bander = Bander.find_by_slug(params[:bander_id])
         @banding_records = @report.birds_of_species
         @report.birds_of_species.build.build_species
