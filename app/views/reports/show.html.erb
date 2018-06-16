@@ -1,4 +1,16 @@
 <%= link_to("Return to home page", bander_path, method: :get) %>
-<%= render 'display', report: @report %>
-<br><br>
-<%= render partial: 'reports/buttons/post_report_button', locals: {report: @report} %>
+<% if @report.status = "draft" %>
+    <%= %>
+<% else %>
+    <%= %>
+<% end %>
+<h2>Birds Banded:</h2>
+<table class="display">
+    <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
+<%= render 'birds_of_species/birds_of_species' %>
+</table>
+<%= render partial: 'reports/buttons/edit_button' %>
+<% if @report.status == "draft" %>
+    <%= render partial: 'reports/buttons/post_report_button', locals: {report: @report} %>
+    <%= render partial: 'reports/buttons/save_draft_button' %>
+<% end %>

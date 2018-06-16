@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 before_action :get_report, :login_required
-skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
+skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_banded ]
 
     def index
         @reports = Report.all
@@ -55,7 +55,9 @@ skip_before_action :get_report, only: [:new, :create, :index, :by_total_banded]
         @report.birds_of_species.build.build_species
     end
 
-    def preview
+    def show
+        @banding_records = @report.birds_of_species
+        
     end
 
     def post_report
