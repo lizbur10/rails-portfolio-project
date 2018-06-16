@@ -7,7 +7,7 @@ class BirdsOfSpeciesController < ApplicationController
     def create
         @bos = BirdsOfSpecies.new
         if @bos.update(birds_of_species_params)
-            redirect_to bander_report_path(@bos.report.bander, @bos.report)
+            redirect_to add_birds_path(@bos.report.bander, @bos.report)
 
             # render 'birds_of_species/show'
         else
