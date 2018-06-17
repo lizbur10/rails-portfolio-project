@@ -60,6 +60,10 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
         
     end
 
+    def add_writeup
+        session[:show_writeup_field] = true
+    end
+
     def post_report
         @report.update(:status => "posted")
         session[:show_writeup_field] = false
