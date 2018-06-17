@@ -1,20 +1,27 @@
 <%= link_to("Return to home page", bander_path, method: :get) %>
+
 <% if @report.status === "draft" %>
     <h2>**Draft**</h2>
 <% end %>
+
 <h1>Report for: <%= report_datetime_formatted(@report.date) %></h1>
-<% if session[:show_writeup_field] === true %>
+
+<% if @report.content && @report.content != "" %>
+    <%= render 'writeup' %>
+<% elsif session[:show_writeup_field] === true %>
     <%= render 'writeup_field' %>
 <% else %>
     <%= render partial: 'reports/buttons/add_writeup_button', locals: {report: @report} %>
 <% end %>
+
 <h2>Birds Banded:</h2>
 <table class="display">
     <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
 <%= render 'birds_of_species/birds_of_species' %>
 </table>
 <%= render partial: 'reports/buttons/edit_button' %>
+
 <% if @report.status === "draft" %>
-    <%= render partial: 'reports/buttons/post_report_button', locals: {report: @report} %>
     <%= render partial: 'reports/buttons/save_draft_button' %>
+    <%= render partial: 'reports/buttons/post_report_button', locals: {report: @report} %>
 <% end %>
