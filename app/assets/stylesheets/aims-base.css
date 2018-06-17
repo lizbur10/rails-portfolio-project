@@ -121,12 +121,8 @@ tr td:nth-child(3), tr td:nth-child(4) {
   text-align: center;
 }
 
-.display tr:nth-child(even) {
+.display tr:nth-of-type(even) {
   background-color: #f2f2f2; 
-}
-
-.display tr:last-child {
-  background-color: white;
 }
 
 td input[type="number"] {

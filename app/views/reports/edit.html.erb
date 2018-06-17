@@ -1,4 +1,3 @@
 <%= link_to("Return to home page", bander_path, method: :get) %>
 <%= render '/error_output', object: @report %>
 <%= render 'form', report: @report %>
-<%= render partial: 'reports/buttons/preview_report_button', locals: {report: @report} %>
