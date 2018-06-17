@@ -52,7 +52,7 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
     def add_birds
         @bander = Bander.find_by_slug(params[:bander_id])
         @banding_records = @report.birds_of_species
-        @report.birds_of_species.build.build_species
+        # @report.birds_of_species.build.build_species
     end
 
     def show

@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   end
 
   get '/banders/:bander_id/reports/:id/add_birds' => 'reports#add_birds', as: :add_birds
-  # get '/banders/:bander_id/reports/:id/preview' => 'reports#preview', as: :preview_bander_report
   post '/reports/:id/post_report' => 'reports#post_report', as: :post_report
   # get '/reports/by_total_banded' => 'reports#by_total_banded'
 
