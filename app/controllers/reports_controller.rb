@@ -39,6 +39,7 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
 
     def update
         session[:show_writeup_field] = true if params[:commit] == "Add a Writeup"
+        session[:show_writeup_field] = false if params[:commit] == "Cancel"
         if @report && @report.update(report_params)
             # render "birds_of_species/show", :layout => false
             redirect_to bander_report_path
@@ -60,6 +61,7 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
 
     def add_writeup
         session[:show_writeup_field] = true
+        redirect_to bander_report_path(@report.bander, @report)
     end
 
     def post_report
