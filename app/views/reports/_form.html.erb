@@ -2,7 +2,7 @@
     <%= f.hidden_field :report_id, :value => @report.id %>
     <%= f.hidden_field :bander_id, :value => current_bander.id %>
     <%= f.fields_for :species do |s|%>
-        <tr>
+        <tr class="add_bird">
             <td class="<%= 'field_with_errors' if code_error_exists(report) && last_record?(f, report) %>"><%= s.text_field :code, :name => "birds_of_species[species_attributes][code]" %></td>
             <td class="<%= 'field_with_errors' if name_error_exists(report) && last_record?(f, report) %>"><%= s.text_field :name, :name => "birds_of_species[species_attributes][name]" %></td>
             <td><%= f.number_field :number_banded %></td>
