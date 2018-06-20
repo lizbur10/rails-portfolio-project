@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   get 'site/index'
 
   # resources :species
-  resources :reports, only: [:index]
+  resources :reports, only: [:index, :create, :update]
   resources :birds_of_species, only: [:create, :update, :destroy]
   resources :banders, only: [:index, :new, :create, :show, :edit, :update] do
-    resources :reports
+    resources :reports, only: [:new, :show, :edit]
   end
 
   get '/banders/:bander_id/reports/:id/add_birds' => 'reports#add_birds', as: :add_birds
