@@ -38,7 +38,6 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
     end
 
     def update
-        binding.pry
         session[:show_writeup_field] = true if params[:commit] == "Add a Writeup"
         session[:show_writeup_field] = false if params[:commit] == "Cancel"
         if @report && @report.update(report_params)
@@ -84,7 +83,7 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
             :date, 
             :bander_id,
             :content,
-            :birds_of_species_attributes => [:bander_id, :number_banded, :id,
+            :birds_of_species_attributes => [:bander_id, :report_id, :number_banded, :id,
                 :species_attributes => [:code, :name, :id]]
             )
     end

@@ -50,7 +50,7 @@ class Report < ApplicationRecord
                 if bosa[1]["species_attributes"]["name"] != ""
                     this_species_name = bosa[1]["species_attributes"]["name"]
                     if found_species = self.species.find_by(:name => this_species_name)
-                        @this_bird_of_species = found_species.birds_of_species.first
+                        @this_bird_of_species = self.birds_of_species.find_by(:species_id => found_species.id)
                         if bosa[1]["number_banded"].to_i != @this_bird_of_species.number_banded
                             @this_bird_of_species.number_banded = bosa[1]["number_banded"].to_i
                             @this_bird_of_species.save
