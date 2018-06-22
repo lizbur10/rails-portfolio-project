@@ -1,5 +1,6 @@
 class BirdsOfSpeciesController < ApplicationController
     before_action :login_required
+    before_action :get_report
     
     def new
     end
@@ -15,6 +16,10 @@ class BirdsOfSpeciesController < ApplicationController
         end
     end
 
+    def index
+        @birds_of_species = @report.birds_of_species
+    end
+
     private
     def birds_of_species_params
         params.require(:birds_of_species).permit(
@@ -24,6 +29,10 @@ class BirdsOfSpeciesController < ApplicationController
             :number_banded,
             :species_attributes => [:code, :name, :id]
             )
+    end
+
+    def get_report
+        @report = Report.find_by_date_slug(params[:id]) 
     end
 
 

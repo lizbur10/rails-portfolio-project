@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # resources :species
   resources :reports, only: [:index, :create, :update]
-  resources :birds_of_species, only: [:create, :update, :destroy]
+  resources :birds_of_species, only: [:create, :index, :update, :destroy]
   resources :banders, only: [:index, :new, :create, :show, :edit, :update] do
     resources :reports, only: [:new, :show, :edit]
   end
