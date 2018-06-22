@@ -1,10 +1,6 @@
 $(function() {
     $("a.load_reports").on("click", function(e){
-        $.ajax({
-            method: "GET",
-            url: this.href 
-        }).done(function (response) {
-
+        $.get(this.href).success(function(response) {
             $("div.posted_reports").html(response);
         })
         e.preventDefault();

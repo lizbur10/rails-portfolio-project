@@ -5,7 +5,7 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
     def index
         @reports = Report.all
 
-        render 'reports/index', :layout => false
+        render :layout => false
     end
 
     def new
