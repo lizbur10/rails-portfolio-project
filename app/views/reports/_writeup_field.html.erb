@@ -1,5 +1,5 @@
 <h3>Writeup:</h3>
-<%= form_for(:report,method: :patch) do |f| %>
+<%= form_for(:report, :url => report_path, method: :patch) do |f| %>
     <%= f.text_area :content, cols: 100, rows: 10 %><br>
     <%= f.submit "Save writeup"%>
     <%= f.submit "Cancel"%>
