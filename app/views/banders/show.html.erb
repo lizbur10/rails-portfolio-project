@@ -10,14 +10,9 @@
         <%end%>
     </ul></li>
 <%end%>
+<br><br>
 <%if !@posted_reports.empty? %>
-    <li><h2>View or edit a report you have posted:</h2><%# scope = posted %>
-        <ul>
-            <%@posted_reports.each do |report|%>
-                <li><h3><%= link_to report_datetime_formatted(report.date), bander_report_path(current_bander, report) %></h3></li>
-            <%end%>
-        </ul>
-    </li></ul>
+   <h3><%= link_to "View posted reports", bander_reports_path(current_bander, @report), :class => "load_reports" %></h3>
 <%end%>
 <br>
 <% ## Add actions to view/edit account information and logout%>
