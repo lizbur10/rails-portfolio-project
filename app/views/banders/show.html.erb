@@ -10,9 +10,9 @@
         <%end%>
     </ul></li>
 <%end%>
-<br><br>
+<br>
 <%if !@posted_reports.empty? %>
-   <h3><%= link_to "View posted reports", bander_reports_path(current_bander, @report), :class => "load_reports" %></h3>
+   <div class="posted_reports"><%= link_to "View your posted reports", bander_reports_path(current_bander, @report), :class => "load_reports" %></div>
 <%end%>
 <br>
 <% ## Add actions to view/edit account information and logout%>

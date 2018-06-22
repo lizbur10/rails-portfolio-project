@@ -3,9 +3,9 @@ $(function() {
         $.ajax({
             method: "GET",
             url: this.href 
-        }).done(function (data) {
+        }).done(function (response) {
 
-            console.log(data);
+            $("div.posted_reports").html(response);
         })
         e.preventDefault();
     })
