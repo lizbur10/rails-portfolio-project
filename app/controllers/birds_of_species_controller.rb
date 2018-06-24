@@ -1,6 +1,8 @@
 class BirdsOfSpeciesController < ApplicationController
-    before_action :login_required
-    before_action :get_report
+before_action :login_required
+before_action :get_report
+skip_before_action :get_report, only: [:create]
+
     
     def new
     end
