@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'site/index'
 
   # resources :species
-  resources :reports, only: [:create, :update]
+  resources :reports, only: [:create, :update, :show]
   resources :birds_of_species, only: [:create, :index, :update, :destroy]
   resources :banders, only: [:new, :create, :show, :edit, :update] do
     resources :reports, only: [:index, :new, :show, :edit]

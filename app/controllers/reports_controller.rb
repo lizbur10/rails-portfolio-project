@@ -59,7 +59,8 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
 
     def show
         @banding_records = @report.birds_of_species
-        
+
+        render :layout => false        
     end
 
     def add_writeup
