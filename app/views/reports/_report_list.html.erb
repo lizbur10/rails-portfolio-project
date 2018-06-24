@@ -1,0 +1,6 @@
+<h2>Your posted reports:</h2>
+<ul>
+<%@reports.posted.order(:date).each do |report| %>
+    <li><h3><%= link_to report_datetime_formatted(report.date), bander_report_path(current_bander, report)%><h3></li>
+<%end%>
+</ul>
