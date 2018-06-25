@@ -1,12 +1,15 @@
-<h1>Report for: <%= report_datetime_formatted(@report.date) %></h1>
+<div class="posted_report_view">
+    <h1>Report for: <%= report_datetime_formatted(@report.date) %></h1>
 
-<% if @report.content && @report.content != "" %>
-    <%= render 'writeup' %>
-<% end %>
+    <% if @report.content && @report.content != "" %>
+        <%= render 'writeup' %>
+    <% end %>
 
-<h2>Birds Banded:</h2>
-<table class="display">
-    <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
-<%= render 'birds_of_species/birds_of_species' %>
-</table>
-
+    <h2>Birds Banded:</h2>
+    <table class="display">
+        <tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>
+    <%= render 'birds_of_species/birds_of_species' %>
+    </table>
+    <br>
+    <%= link_to "Next", :url => "" %>
+</div>
