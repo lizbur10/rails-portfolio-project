@@ -12,7 +12,9 @@ skip_before_action :get_report, only: [:create]
         if (@bos.update(birds_of_species_params) && params[:commit] == "Finished") || params[:commit] == "Finished"
             redirect_to bander_report_path(@bos.report.bander, @bos.report)
         elsif @bos.update(birds_of_species_params)
-            redirect_to add_birds_path(@bos.report.bander, @bos.report)
+                #redirect_to add_birds_path(@bos.report.bander, @bos.report
+                # NEED TO ADD RENDER HERE TO GET RID OF TURBOLINKS ERROR
+                render 'birds_of_species', :layout => false            
         else
         #    render 'new'
         end
@@ -30,7 +32,7 @@ skip_before_action :get_report, only: [:create]
             :bander_id,
             :number_banded,
             :species_attributes => [:code, :name, :id]
-            )
+        )
     end
 
     def get_report
