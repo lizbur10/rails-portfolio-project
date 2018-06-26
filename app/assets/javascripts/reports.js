@@ -19,8 +19,11 @@ $(function() {
             url: this.form.action,
             data: data, 
             success: function(response) {
-                debugger
-                // $("tr:last-child").before(response);
+                $("#birds_of_species_species_code").val("")
+                $("#birds_of_species_species_name").val("")
+                $("#birds_of_species_number_banded").val("")
+                $("tr:last-child").before(response);
+                $("#birds_of_species_species_code").focus()
             }
         })
         e.preventDefault();
