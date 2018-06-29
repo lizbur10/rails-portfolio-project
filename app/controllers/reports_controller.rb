@@ -60,7 +60,9 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
     def show
         @bos = @report.birds_of_species
 
-        render :layout => false        
+        # render :layout => false
+        # https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/adapters.md#include-option
+        render json: @report, include: ['birds_of_species', 'birds_of_species.species']
     end
 
     def add_writeup
