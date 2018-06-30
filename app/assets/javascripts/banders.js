@@ -12,12 +12,13 @@ $(function() {
     $("div.posted_reports").on("click", "a.js-load_report", function(e){
 
         $.get(this.href).success(function(json){ // json is what is returned 
+            report = new Report (json["date"], json["content"]);
             debugger;
             // json.first(function(report){
             //     $div.append("to be filled in")
             // })
         })
-        // e.preventDefault();
+        e.preventDefault();
     })
 
     // ADD CLICK EVENT FOR NEXT LINK
@@ -34,5 +35,16 @@ $(function() {
             $(".js-next").attr("data-id", data["id"]);
         });
     })
+
+    class Report {
+        constructor(date, content) {
+            this.date = date;
+            this.content = content;
+        }
+
+        formatDate() {
+            $.format.date(this.date, "MMMdd");
+        }
+    }
 });
 
