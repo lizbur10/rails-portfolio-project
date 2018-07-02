@@ -21,17 +21,7 @@ $(function() {
         e.preventDefault();
     })
 
-    // LOAD SINGLE REPORT
-    $("div.posted_reports").on("click", "a.js-load_report", function(e){
-        report_urls.shift();
-        $.ajax({
-            url: this.href, // reports/:id
-            dataType: 'script' // views/reports/show.js.erb -> _posted_report
-        })
-        e.preventDefault();
-    })
-
-    // ADD CLICK EVENT FOR NEXT LINK
+    // CLICK EVENT FOR 'NEXT' LINK
     $("div.posted_reports").on("click", ".js-next", function(e){
 
         // ADD IF STATEMENT TO CONTROL FOR LAST REPORT
@@ -44,17 +34,5 @@ $(function() {
 
     })
 
-     // class Report {
-    //     constructor(date, content, birds_of_species) {
-    //         this.date = date;
-    //         this.content = content;
-    //         this.birds_of_species = birds_of_species;
-    //         this.formatted_date = "";
-    //     }
-
-    //     formatDate() {
-    //         return $.format.date(this.date, "MMMdd");
-    //     }
-    // }
 });
 
