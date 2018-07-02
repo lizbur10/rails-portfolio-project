@@ -10,8 +10,14 @@ $(function() {
             elements.each(function(){
                 report_urls.push($(this).attr("href")) 
             })
-        }) 
-
+        }).then(function(){
+            url = report_urls.shift();
+            $.ajax({
+                url: url, // reports/:id
+                dataType: 'script' // views/reports/show.js.erb -> _posted_report
+            })
+    
+        })
         e.preventDefault();
     })
 
@@ -38,7 +44,7 @@ $(function() {
 
     })
 
-    // class Report {
+     // class Report {
     //     constructor(date, content, birds_of_species) {
     //         this.date = date;
     //         this.content = content;

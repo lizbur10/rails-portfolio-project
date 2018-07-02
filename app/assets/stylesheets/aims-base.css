@@ -138,6 +138,10 @@ td input[type="number"] {
 
 /* AJAX VIEWS */
 
+.hidden {
+  display: none;
+}
+
 div.posted_report_view {
   width: 600px;
   padding: 0 0px 50px 50px;
