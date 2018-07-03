@@ -63,7 +63,8 @@ skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_bande
         # render :layout => false
         # https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/adapters.md#include-option
         respond_to do |format|
-            format.js {render json: @report, include: ['birds_of_species', 'birds_of_species.species']}
+            # USING ACTIVE MODEL SERIALIZER TO CREATE THE JSON
+            format.js {render json: @report, include: ['birds_of_species', 'birds_of_species.species']} 
             format.html {render 'show.html'}
         end
 

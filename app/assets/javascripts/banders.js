@@ -16,7 +16,7 @@ $(function() {
             $.ajax({
                 url: url,
                 dataType: 'json'
-            }).success(function(json){ // json is what is returned
+            }).success(function(json){ 
                 report = new Report (json["date"], json["content"], json["birds_of_species"]);
                 report.renderReport();
 

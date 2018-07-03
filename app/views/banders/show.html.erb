@@ -1,18 +1,19 @@
-<h1>Welcome <%=current_bander.name%>!</h1>
+<div class="js-body">
+    <h1>Welcome <%=current_bander.name%>!</h1>
 
-<ul class="flush-left">
-<li><h2><%= link_to "Start a new report", new_bander_report_path(current_bander) %></h2></li>
-<%if !@draft_reports.empty? %> 
-    <li><h2>Continue working on a draft report:</h2>
-    <ul>
-        <%@draft_reports.each do |report|%>
-            <li><h3><%= link_to report_datetime_formatted(report.date), edit_bander_report_path(current_bander, report) %></h3></li>
-        <%end%>
-    </ul></li>
-<%end%>
-<br>
-<%if !@posted_reports.empty? %>
-   <div class="posted_reports"><h2><%= link_to "View posted reports", bander_reports_path(current_bander), :class => "js-load_posted_list" %></h2></div>
-<%end%>
-<br>
-<% ## Add actions to view/edit account information and logout%>
+    <ul class="flush-left">
+    <li><h2><%= link_to "Start a new report", new_bander_report_path(current_bander) %></h2></li>
+    <%if !@draft_reports.empty? %> 
+        <li><h2>Continue working on a draft report:</h2>
+        <ul>
+            <%@draft_reports.each do |report|%>
+                <li><h3><%= link_to report_datetime_formatted(report.date), edit_bander_report_path(current_bander, report) %></h3></li>
+            <%end%>
+        </ul></li>
+    <%end%>
+    <br>
+    <%if !@posted_reports.empty? %>
+    <div class="posted_reports"><h2><%= link_to "View posted reports", bander_reports_path(current_bander), :class => "js-load_posted_list" %></h2></div>
+    <%end%>
+    <% ## Add actions to view/edit account information and logout%>
+</div>

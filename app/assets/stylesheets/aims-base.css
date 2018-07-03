@@ -138,9 +138,9 @@ td input[type="number"] {
 
 /* AJAX VIEWS */
 
-.hidden {
+/* .hidden {
   display: none;
-}
+} */
 
 div.posted_report_view {
   width: 600px;
