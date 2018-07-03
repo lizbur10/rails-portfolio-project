@@ -106,8 +106,11 @@ $(function() {
                 $('table.display').append(`<tr><td>${(bos["species"]["code"])}</td><td>${(bos["species"]["name"])}</td><td>${(bos["number_banded"])}</td></tr>`);
             })
             $('.js-body').append(`</table><br>`);
-            if (report_urls.length > 0) {
-                $('.js-body').append(`<a href="#" class="js-next">Next</a>`);
+            if (index > 0) {
+                $('.js-body').append(`<p><a href="#" class="js-previous"><- Previous Report</a></p>`);
+            }
+            if (index < report_urls.length - 1) {
+                $('.js-body').append(`<p><a href="#" class="js-next">Next Report -></a></p>`);
 
             }
 
