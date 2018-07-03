@@ -3,8 +3,15 @@ $(function() {
     // RETRIEVE LIST OF POSTED REPORTS AND POPULATE THE ARRAY OF URL'S
     $("div.posted_reports").on("click", "a.js-load_posted_list", function(e){
         $.ajax({
+            // NEED TO CREATE AN ACTION FOR POSTED REPORTS
             url: this.href, // banders/Liz/reports
-            dataType: 'script' // views/reports/index.js.erb -> _report_list.html.erb
+            dataType: 'json' // views/reports/index.js.erb -> _report_list.html.erb
+            // dataType: 'script' // views/reports/index.js.erb -> _report_list.html.erb
+        }).success(function(json){
+            json.forEach(function(record){
+                report = new Report (record["date"], record["content"], record["birds_of_species"]);
+                $('.posted_reports').append(`<li>${(report.formatDate())}</li>`);
+            })
         }).then(function(){
             elements = $(".js-load_report"); 
             elements.each(function(){
@@ -23,14 +30,13 @@ $(function() {
         }).success(function(json){ 
             report = new Report (json["date"], json["content"], json["birds_of_species"]);
             report.renderReport();
-            debugger;
 
         })
         e.preventDefault();
     })
 
     // CLICK EVENT FOR 'NEXT' LINK
-    $("div.posted_reports").on("click", ".js-next", function(e){
+    $("div.js-body").on("click", ".js-next", function(e){
 
         if(report_urls.length > 0) {
             url = report_urls.shift();
