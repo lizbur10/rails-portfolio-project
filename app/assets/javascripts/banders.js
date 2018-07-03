@@ -13,7 +13,10 @@ $(function() {
         }).then(function(){
             // GET THE URL FOR THE FIRST POSTED REPORT AND DISPLAY IT
             url = report_urls.shift();
-            $.get(url).success(function(json){ // json is what is returned
+            $.ajax({
+                url: url,
+                dataType: 'json'
+            }).success(function(json){ // json is what is returned
                 report = new Report (json["date"], json["content"], json["birds_of_species"]);
                 report.renderReport();
 
@@ -27,9 +30,12 @@ $(function() {
 
         if(report_urls.length > 0) {
             url = report_urls.shift();
-            $.get(url).success(function(json){
+            $.ajax({
+                url: url,
+                dataType: 'json'
+            }).success(function(json){ // json is what is returned
                 report = new Report (json["date"], json["content"], json["birds_of_species"]);
-                report.renderReport();
+            report.renderReport();
             })
         }
         e.preventDefault();
