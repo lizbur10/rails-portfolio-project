@@ -22,7 +22,6 @@
 
 <% if @report.status === "draft" %>
     <%= render partial: 'reports/buttons/edit_button' %>
-    <%= render partial: 'reports/buttons/add_birds_button' %>
     <br>
     <%= render partial: 'reports/buttons/save_draft_button' %>
     <%= render partial: 'reports/buttons/post_report_button', locals: {report: @report} %>

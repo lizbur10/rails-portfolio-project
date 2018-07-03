@@ -1,3 +1,5 @@
 <%= link_to("Return to home page", bander_path, method: :get) %>
 <%= render '/error_output', object: @report %>
 <%= render 'edit_form', report: @report %>
+<%= render 'reports/buttons/add_birds_button' %>
+
