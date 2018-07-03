@@ -1,11 +1,17 @@
 class ReportsController < ApplicationController
 before_action :get_report, :login_required
-skip_before_action :get_report, only: [:new, :create, :index] #, :by_total_banded ]
+skip_before_action :get_report, only: [:new, :create, :index, :posted_reports] #, :by_total_banded ]
 
     def index
         @reports = Report.all
 
         # render :layout => false
+        render :json => @reports
+    end
+
+    def posted_reports
+        @reports = Report.where(:status => "posted")
+
         render :json => @reports
     end
 
