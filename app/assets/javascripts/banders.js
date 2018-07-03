@@ -1,12 +1,13 @@
 $(function() {
     const report_urls = [];
+    let index = 0;
+
     // RETRIEVE LIST OF POSTED REPORTS AND POPULATE THE ARRAY OF URL'S
     $("div.posted_reports").on("click", "a.js-load_posted_list", function(e){
         $.ajax({
             // NEED TO CREATE AN ACTION FOR POSTED REPORTS
             url: this.href, // banders/Liz/reports
-            dataType: 'json' // views/reports/index.js.erb -> _report_list.html.erb
-            // dataType: 'script' // views/reports/index.js.erb -> _report_list.html.erb
+            dataType: 'json'
         }).success(function(json){
             $('.posted_reports').html(`<li><h2>Your Posted Reports</h2></li>`);
             $('.posted_reports').append(`<ul>`);
@@ -26,10 +27,12 @@ $(function() {
 
     $("div.posted_reports").on("click", "a.js-load_report", function(e){
         // DISPLAY CLICKED REPORT
+        let path = this.href.replace('http://localhost:3000','');
         $.ajax({
             url: this.href,
             dataType: 'json'
         }).success(function(json){ 
+            index = report_urls.indexOf(path);
             report = new Report (json["date"], json["content"], json["birds_of_species"]);
             report.renderReport();
 
@@ -40,8 +43,9 @@ $(function() {
     // CLICK EVENT FOR 'NEXT' LINK
     $("div.js-body").on("click", ".js-next", function(e){
 
-        if(report_urls.length > 0) {
-            url = report_urls.shift();
+        if(index < report_urls.length - 1) {
+            index ++;
+            url = report_urls[index];
             $.ajax({
                 url: url,
                 dataType: 'json'
@@ -54,6 +58,24 @@ $(function() {
 
     })
 
+    // CLICK EVENT FOR 'PREVIOUS' LINK
+    $("div.js-body").on("click", ".js-previous", function(e){
+
+        if(index > 0) {
+            index --;
+            url = report_urls[index];
+            $.ajax({
+                url: url,
+                dataType: 'json'
+            }).success(function(json){ // json is what is returned
+                report = new Report (json["date"], json["content"], json["birds_of_species"]);
+            report.renderReport();
+            })
+        }
+        e.preventDefault();
+
+    })
+    
 
     class Report {
         constructor(date, content, birds_of_species) {
