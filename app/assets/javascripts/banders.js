@@ -8,10 +8,13 @@ $(function() {
             dataType: 'json' // views/reports/index.js.erb -> _report_list.html.erb
             // dataType: 'script' // views/reports/index.js.erb -> _report_list.html.erb
         }).success(function(json){
+            $('.posted_reports').html(`<li><h2>Your Posted Reports</h2></li>`);
+            $('.posted_reports').append(`<ul>`);
             json.forEach(function(record){
                 report = new Report (record["date"], record["content"], record["birds_of_species"]);
-                $('.posted_reports').append(`<li>${(report.formatDate())}</li>`);
+                $('.posted_reports ul').append(`<li><h3><a class="js-load_report" href="${report.createURL()}">${(report.formatDate())}</a></h3></li>`);
             })
+            $('.posted_reports').append(`</ul>`);
         }).then(function(){
             elements = $(".js-load_report"); 
             elements.each(function(){
@@ -22,10 +25,9 @@ $(function() {
     })
 
     $("div.posted_reports").on("click", "a.js-load_report", function(e){
-        // GET THE URL FOR THE FIRST POSTED REPORT AND DISPLAY IT
-        url = report_urls.shift();
+        // DISPLAY CLICKED REPORT
         $.ajax({
-            url: url,
+            url: this.href,
             dataType: 'json'
         }).success(function(json){ 
             report = new Report (json["date"], json["content"], json["birds_of_species"]);
@@ -62,6 +64,11 @@ $(function() {
 
         formatDate() {
             return $.format.date(this.date, "MMM dd");
+        }
+
+        createURL() {
+            let datePortion = this.formatDate().replace(/\s/g, '');
+            return '/reports/' + datePortion;
         }
 
         renderReport() {
