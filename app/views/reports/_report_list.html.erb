@@ -1,6 +1,6 @@
 <h2>Your posted reports:</h2>
 
-<div class="posted_report_view">
+<div>
 <ul>
 <%@reports.posted.order(:date).each do |report| %>
     <li class="hidden"><h3><%= link_to report_datetime_formatted(report.date), report_path(report), :class => "js-load_report" %><h3></li>

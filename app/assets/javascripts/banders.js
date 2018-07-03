@@ -10,17 +10,21 @@ $(function() {
             elements.each(function(){
                 report_urls.push($(this).attr("href")) 
             })
-        }).then(function(){
-            // GET THE URL FOR THE FIRST POSTED REPORT AND DISPLAY IT
-            url = report_urls.shift();
-            $.ajax({
-                url: url,
-                dataType: 'json'
-            }).success(function(json){ 
-                report = new Report (json["date"], json["content"], json["birds_of_species"]);
-                report.renderReport();
+        })
+        e.preventDefault();
+    })
 
-            })                
+    $("div.posted_reports").on("click", "a.js-load_report", function(e){
+        // GET THE URL FOR THE FIRST POSTED REPORT AND DISPLAY IT
+        url = report_urls.shift();
+        $.ajax({
+            url: url,
+            dataType: 'json'
+        }).success(function(json){ 
+            report = new Report (json["date"], json["content"], json["birds_of_species"]);
+            report.renderReport();
+            debugger;
+
         })
         e.preventDefault();
     })
@@ -55,20 +59,20 @@ $(function() {
         }
 
         renderReport() {
-            $('.posted_report_view').html(`<h1>Report for: ${(report.formatDate())}</h1>`);
+            $('.js-body').html(`<h1>Report for: ${(report.formatDate())}</h1>`);
             if(report.content != null) {
-                $('.posted_report_view').append(`<p>${(report.content)}</p>`);
+                $('.js-body').append(`<p>${(report.content)}</p>`);
             }
-            $('.posted_report_view').append(`<h2>Birds Banded:</h2>`);
+            $('.js-body').append(`<h2>Birds Banded:</h2>`);
             // $('.posted_report_view').append(`<table class="display">`);
-            $('.posted_report_view').append(`<table class="display"><tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>`);
+            $('.js-body').append(`<table class="display"><tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>`);
 
             report.birds_of_species.forEach(function(bos){
                 $('table.display').append(`<tr><td>${(bos["species"]["code"])}</td><td>${(bos["species"]["name"])}</td><td>${(bos["number_banded"])}</td></tr>`);
             })
-            $('.posted_report_view').append(`</table><br>`);
+            $('.js-body').append(`</table><br>`);
             if (report_urls.length > 0) {
-                $('.posted_report_view').append(`<a href="#" class="js-next">Next</a>`);
+                $('.js-body').append(`<a href="#" class="js-next">Next</a>`);
 
             }
 
