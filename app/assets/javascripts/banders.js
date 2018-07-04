@@ -75,6 +75,12 @@ $(function() {
         e.preventDefault();
 
     })
+
+    // CLICK EVENT FOR 'RETURN HOME' LINK
+    $("div.js-body").on("click", ".js-return", function(e){
+        location.reload();
+    })
+
     
 
     class Report {
@@ -94,7 +100,10 @@ $(function() {
         }
 
         renderReport() {
-            $('.js-body').html(`<h1>Report for: ${(report.formatDate())}</h1>`);
+            
+            $('.js-body').html(`<a href="#" class="js-return">Return home</a><br><br>`)
+            $('.js-body').append(`<h1>Report for: ${(report.formatDate())}</h1>`);
+            // $('.js-body').append(`<h2>Banded by: ${report.bander}</h2>`);
             if(report.content != null) {
                 $('.js-body').append(`<p>${(report.content)}</p>`);
             }
