@@ -12,7 +12,7 @@ $(function() {
             $('.posted_reports').html(`<li><h2>Your Posted Reports</h2></li>`);
             $('.posted_reports').append(`<ul>`);
             json.forEach(function(record){
-                report = new Report (record["date"], record["content"], record["birds_of_species"]);
+                report = new Report (record["bander"], record["date"], record["content"], record["birds_of_species"]);
                 $('.posted_reports ul').append(`<li><h3><a class="js-load_report" href="${report.createURL()}">${(report.formatDate())}</a></h3></li>`);
             })
             $('.posted_reports').append(`</ul>`);
@@ -33,7 +33,7 @@ $(function() {
             dataType: 'json'
         }).success(function(json){ 
             index = report_urls.indexOf(path);
-            report = new Report (json["date"], json["content"], json["birds_of_species"]);
+            report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
             report.renderReport();
 
         })
@@ -50,7 +50,7 @@ $(function() {
                 url: url,
                 dataType: 'json'
             }).success(function(json){ // json is what is returned
-                report = new Report (json["date"], json["content"], json["birds_of_species"]);
+                report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
             report.renderReport();
             })
         }
@@ -68,7 +68,7 @@ $(function() {
                 url: url,
                 dataType: 'json'
             }).success(function(json){ // json is what is returned
-                report = new Report (json["date"], json["content"], json["birds_of_species"]);
+                report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
             report.renderReport();
             })
         }
@@ -84,7 +84,8 @@ $(function() {
     
 
     class Report {
-        constructor(date, content, birds_of_species) {
+        constructor(bander, date, content, birds_of_species) {
+            this.bander = bander;
             this.date = date;
             this.content = content;
             this.birds_of_species = birds_of_species;
@@ -100,10 +101,10 @@ $(function() {
         }
 
         renderReport() {
-            
+            debugger;
             $('.js-body').html(`<a href="#" class="js-return">Return home</a><br><br>`)
             $('.js-body').append(`<h1>Report for: ${(report.formatDate())}</h1>`);
-            // $('.js-body').append(`<h2>Banded by: ${report.bander}</h2>`);
+            $('.js-body').append(`<h3>Posted by: ${report.bander.name}</h3>`);
             if(report.content != null) {
                 $('.js-body').append(`<p>${(report.content)}</p>`);
             }
