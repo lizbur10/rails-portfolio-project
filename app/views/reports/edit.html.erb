@@ -2,4 +2,6 @@
 <%= render '/error_output', object: @report %>
 <%= render 'edit_form', report: @report %>
 <%= render 'reports/buttons/add_birds_button' %>
-
+<br>
+<%= render 'reports/buttons/save_draft_button', report: @report %>
+<%= render 'reports/buttons/post_report_button', report: @report %>

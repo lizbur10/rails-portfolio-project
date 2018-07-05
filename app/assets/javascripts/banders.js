@@ -101,8 +101,7 @@ $(function() {
         }
 
         renderReport() {
-            debugger;
-            $('.js-body').html(`<a href="#" class="js-return">Return home</a><br><br>`)
+            $('.js-body').html(`<a href="#" class="js-return">Return to home page</a><br><br>`)
             $('.js-body').append(`<h1>Report for: ${(report.formatDate())}</h1>`);
             $('.js-body').append(`<h3>Posted by: ${report.bander.name}</h3>`);
             if(report.content != null) {
