@@ -5,7 +5,7 @@ $(function() {
     // RETRIEVE LIST OF POSTED REPORTS AND POPULATE THE ARRAY OF URL'S
     $("div.posted_reports").on("click", "a.js-load_posted_list", function(e){
         $.ajax({
-            url: this.href, // banders/Liz/reports, reports#index
+            url: this.href, // reports#index
             dataType: 'json'
         }).success(function(json){
             $('.posted_reports').html(`<li><h2>Your Posted Reports</h2></li>`);
