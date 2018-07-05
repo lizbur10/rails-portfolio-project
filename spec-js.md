@@ -1,7 +1,7 @@
 # Specifications for the Rails with jQuery Assessment
 
 Specs:
-- [x] Use jQuery for implementing new requirements - AS DESCRIBED BELOW
+- [x] Use jQuery for implementing new requirements - JQUERY IS USED FOR GET REQUESTS TO REPORTS#INDEX AND REPORTS#SHOW (WITH DATATYPE JSON) AND A POST REQUEST TO REPORTS#ADD_BIRDS (WITH DATATYPE SCRIPT)
 - [x] Include a show resource rendered using jQuery and an Active Model Serialization JSON backend. - ON THE BANDER SHOW PAGE, YOU CAN CLICK ON ANY POSTED REPORT AND IT'S RENEDERED ON THE PAGE VIA JSON
 - [x] Include an index resource rendered using jQuery and an Active Model Serialization JSON backend. - CLICKING THE 'VIEW POSTED REPORTS' LINK RENDERS A LIST OF THE POSTED REPORTS ON THE PAGE VIA JSON
 - [x] Include at least one has_many relationship in information rendered via JSON and appended to the DOM. - EACH REPORT HAS MANY BANDING RECORDS (BIRDS) WHICH ARE RENDERED ON THE PAGE VIA JSON
