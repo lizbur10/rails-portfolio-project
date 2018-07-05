@@ -5,8 +5,7 @@ $(function() {
     // RETRIEVE LIST OF POSTED REPORTS AND POPULATE THE ARRAY OF URL'S
     $("div.posted_reports").on("click", "a.js-load_posted_list", function(e){
         $.ajax({
-            // NEED TO CREATE AN ACTION FOR POSTED REPORTS
-            url: this.href, // banders/Liz/reports
+            url: this.href, // banders/Liz/reports, reports#index
             dataType: 'json'
         }).success(function(json){
             $('.posted_reports').html(`<li><h2>Your Posted Reports</h2></li>`);
@@ -25,18 +24,11 @@ $(function() {
         e.preventDefault();
     })
 
+    // DISPLAY CLICKED REPORT
     $("div.posted_reports").on("click", "a.js-load_report", function(e){
-        // DISPLAY CLICKED REPORT
         let path = this.href.replace('http://localhost:3000','');
-        $.ajax({
-            url: this.href,
-            dataType: 'json'
-        }).success(function(json){ 
-            index = report_urls.indexOf(path);
-            report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
-            report.renderReport();
-
-        })
+        index = report_urls.indexOf(path);
+        loadReport(path);
         e.preventDefault();
     })
 
@@ -46,13 +38,7 @@ $(function() {
         if(index < report_urls.length - 1) {
             index ++;
             url = report_urls[index];
-            $.ajax({
-                url: url,
-                dataType: 'json'
-            }).success(function(json){ // json is what is returned
-                report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
-            report.renderReport();
-            })
+            loadReport(url);
         }
         e.preventDefault();
 
@@ -64,13 +50,7 @@ $(function() {
         if(index > 0) {
             index --;
             url = report_urls[index];
-            $.ajax({
-                url: url,
-                dataType: 'json'
-            }).success(function(json){ // json is what is returned
-                report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
-            report.renderReport();
-            })
+            loadReport(url);
         }
         e.preventDefault();
 
@@ -81,8 +61,20 @@ $(function() {
         location.reload();
     })
 
-    
+    // FUNCTION TO LOAD REPORT
+    function loadReport(path) {
+        $.ajax({
+            url: path,
+            dataType: 'json'
+        }).success(function(json){ 
+            report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
+            report.renderReport();
 
+        })
+    }
+
+
+    // DEFINE REPORT CLASS AND METHODS
     class Report {
         constructor(bander, date, content, birds_of_species) {
             this.bander = bander;
@@ -108,7 +100,6 @@ $(function() {
                 $('.js-body').append(`<p>${(report.content)}</p>`);
             }
             $('.js-body').append(`<h2>Birds Banded:</h2>`);
-            // $('.posted_report_view').append(`<table class="display">`);
             $('.js-body').append(`<table class="display"><tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>`);
 
             report.birds_of_species.forEach(function(bos){
