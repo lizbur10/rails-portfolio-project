@@ -11,13 +11,13 @@ $(function() {
             $('.posted_reports').html(`<li><h2>Your Posted Reports</h2></li>`);
             $('.posted_reports').append(`<ul>`);
             json.forEach(function(record){
-                report = new Report (record["bander"], record["date"], record["content"], record["birds_of_species"]);
+                const report = new Report (record["bander"], record["date"], record["content"], record["birds_of_species"]);
                 $('.posted_reports ul').append(`<li><h3><a class="js-load_report" href="${report.createURL()}">${(report.formatDate())}</a></h3></li>`);
             })
             $('.posted_reports').append(`</ul>`);
         }).then(function(){
             // save the list of reports to use for next/previous functions
-            elements = $(".js-load_report"); 
+            const elements = $(".js-load_report"); 
             elements.each(function(){
                 report_urls.push($(this).attr("href")) 
             })
@@ -38,7 +38,7 @@ $(function() {
 
         if(index < report_urls.length - 1) {
             index ++;
-            url = report_urls[index];
+            const url = report_urls[index];
             loadReport(url);
         }
         e.preventDefault();
@@ -50,7 +50,7 @@ $(function() {
 
         if(index > 0) {
             index --;
-            url = report_urls[index];
+            const url = report_urls[index];
             loadReport(url);
         }
         e.preventDefault();
