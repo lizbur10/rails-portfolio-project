@@ -13,7 +13,7 @@ skip_before_action :get_report, only: [:create]
             redirect_to bander_report_path(@bos.report.bander, @bos.report)
         elsif @bos.update(birds_of_species_params)
                 #redirect_to add_birds_path(@bos.report.bander, @bos.report
-                render 'create.js', :layout => false            
+            render :json => @bos
         else
         #    render 'new'
         end
