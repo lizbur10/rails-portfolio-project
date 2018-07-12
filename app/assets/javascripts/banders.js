@@ -77,11 +77,11 @@ $(function() {
 
     // DEFINE REPORT CLASS AND METHODS
     class Report {
-        constructor(bander, date, content, birds_of_species) {
+        constructor(bander, date, content, birdsOfSpecies) {
             this.bander = bander;
             this.date = date;
             this.content = content;
-            this.birds_of_species = birds_of_species;
+            this.birdsOfSpecies = birdsOfSpecies;
         }
 
         formatDate() {
@@ -103,7 +103,7 @@ $(function() {
             $('.js-body').append(`<h2>Birds Banded:</h2>`);
             $('.js-body').append(`<table class="display"><tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>`);
 
-            report.birds_of_species.forEach(function(bos){
+            report.birdsOfSpecies.forEach(function(bos){
                 $('table.display').append(`<tr><td>${(bos["species"]["code"])}</td><td>${(bos["species"]["name"])}</td><td>${(bos["number_banded"])}</td></tr>`);
             })
             $('.js-body').append(`</table><br>`);
