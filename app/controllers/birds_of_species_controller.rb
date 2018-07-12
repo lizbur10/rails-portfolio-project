@@ -13,7 +13,6 @@ skip_before_action :get_report, only: [:create]
             redirect_to bander_report_path(@bos.report.bander, @bos.report)
         elsif @bos.update(birds_of_species_params)
                 #redirect_to add_birds_path(@bos.report.bander, @bos.report
-                # NEED TO ADD RENDER HERE TO GET RID OF TURBOLINKS ERROR
                 render 'create.js', :layout => false            
         else
         #    render 'new'

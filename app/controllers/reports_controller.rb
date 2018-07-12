@@ -2,11 +2,11 @@ class ReportsController < ApplicationController
 before_action :get_report, :login_required
 skip_before_action :get_report, only: [:new, :create, :index, :posted_reports] #, :by_total_banded ]
 
-    def index
+    def index ## NOT CURRENTLY BEING USED
         @reports = Report.all
 
         # render :layout => false
-        render :json => @reports
+        render :json => @reports 
     end
 
     def posted_reports
