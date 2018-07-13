@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 before_action :get_report, :login_required
-skip_before_action :get_report, only: [:new, :create, :index, :posted_reports] #, :by_total_banded ]
+skip_before_action :get_report, only: [:new, :create, :index, :posted_reports, :next_report, :previous_report] #, :by_total_banded ]
 
     def index ## NOT CURRENTLY BEING USED
         @reports = Report.all
@@ -13,6 +13,18 @@ skip_before_action :get_report, only: [:new, :create, :index, :posted_reports] #
         @reports = Report.where(:status => "posted")
 
         render :json => @reports
+    end
+
+    def next_report
+        report = Report.find_by_date_slug(params["current_date_slug"]);
+        next_report = Report.where(:status => "posted").where("date > ?", report.date).first
+        render :json => { date: "#{next_report.date.strftime('%b%d')}" }
+    end
+
+    def previous_report
+        report = Report.find_by_date_slug(params["current_date_slug"]);
+        previous_report = Report.where(:status => "posted").where("date < ?", report.date).last
+        render :json => { date: "#{previous_report.date.strftime('%b%d')}" }
     end
 
     def new

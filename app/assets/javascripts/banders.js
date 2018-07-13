@@ -1,8 +1,6 @@
 $(function() {
-    const report_urls = [];
-    let index = 0;
 
-    // RETRIEVE LIST OF POSTED REPORTS AND POPULATE THE ARRAY OF URL'S
+    // RETRIEVE LIST OF POSTED REPORTS
     $("div.posted_reports").on("click", "a.js-load_posted_list", function(e){
         $.ajax({
             url: this.href, // reports#posted_reports
@@ -15,44 +13,44 @@ $(function() {
                 $('.posted_reports ul').append(`<li><h3><a class="js-load_report" href="${report.createURL()}">${(report.formatDate())}</a></h3></li>`);
             })
             $('.posted_reports').append(`</ul>`);
-        }).then(function(){
-            // save the list of reports to use for next/previous functions
-            const elements = $(".js-load_report"); 
-            elements.each(function(){
-                report_urls.push($(this).attr("href")) 
-            })
         })
         e.preventDefault();
     })
 
     // DISPLAY CLICKED REPORT
     $("div.posted_reports").on("click", "a.js-load_report", function(e){
-        let path = this.href.replace('http://localhost:3000','');
-        index = report_urls.indexOf(path);
+        const path = this.href.replace('http://localhost:3000','');
         loadReport(path);
         e.preventDefault();
     })
 
     // CLICK EVENT FOR 'NEXT' LINK
     $("div.js-body").on("click", ".js-next", function(e){
-
-        if(index < report_urls.length - 1) {
-            index ++;
-            const url = report_urls[index];
-            loadReport(url);
-        }
+        const data = {current_date_slug: $("#posted_date").html().replace(/\s/g, '')};
+        $.ajax({
+            type: "POST",
+            url: '/reports/next_report',
+            data: data
+        }).success(function(nextDate){
+            const path = `/reports/${nextDate["date"]}`;
+            loadReport(path);
+        });
         e.preventDefault();
 
     })
 
     // CLICK EVENT FOR 'PREVIOUS' LINK
     $("div.js-body").on("click", ".js-previous", function(e){
+        const data = {current_date_slug: $("#posted_date").html().replace(/\s/g, '')};
+        $.ajax({
+            type: "POST",
+            url: '/reports/previous_report',
+            data: data
+        }).success(function(previousDate){
+            const path = `/reports/${previousDate["date"]}`;
+            loadReport(path);
+        });
 
-        if(index > 0) {
-            index --;
-            const url = report_urls[index];
-            loadReport(url);
-        }
         e.preventDefault();
 
     })
@@ -95,7 +93,7 @@ $(function() {
 
         renderReport() {
             $('.js-body').html(`<a href="#" class="js-return">Return to home page</a><br><br>`)
-            $('.js-body').append(`<h1>Report for: ${(report.formatDate())}</h1>`);
+            $('.js-body').append(`<h1>Report for: <span id="posted_date">${(report.formatDate())}</span></h1>`);
             $('.js-body').append(`<h3>Posted by: ${report.bander.name}</h3>`);
             if(report.content != null) {
                 $('.js-body').append(`<p>${(report.content)}</p>`);
@@ -106,15 +104,12 @@ $(function() {
             report.birdsOfSpecies.forEach(function(bos){
                 $('table.display').append(`<tr><td>${(bos["species"]["code"])}</td><td>${(bos["species"]["name"])}</td><td>${(bos["number_banded"])}</td></tr>`);
             })
+            
             $('.js-body').append(`</table><br>`);
-            if (index > 0) {
-                $('.js-body').append(`<p><a href="#" class="js-previous"><- Previous Report</a></p>`);
-            }
-            if (index < report_urls.length - 1) {
-                $('.js-body').append(`<p><a href="#" class="js-next">Next Report -></a></p>`);
-
-            }
-
+            //ADD IF CONDITION FOR DISPLAY OF PREVIOUS LINK
+            $('.js-body').append(`<p><a href="#" class="js-previous"><- Previous Report</a></p>`);
+            //ADD IF CONDITION FOR DISPLAY OF NEXT LINK
+            $('.js-body').append(`<p><a href="#" class="js-next">Next Report -></a></p>`);
         }
     }
 });
