@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   post '/reports/:id/add_writeup' => 'reports#add_writeup', as: :add_writeup
   post '/reports/:id/post_report' => 'reports#post_report', as: :post_report
   get '/banders/:bander_id/reports/:id/add_birds' => 'reports#add_birds', as: :add_birds
-
+  get '/species/find_by_code' => 'species#find_by_code'
+  
   # get '/reports/by_total_banded' => 'reports#by_total_banded'
 
   get '/login' => 'sessions#new'

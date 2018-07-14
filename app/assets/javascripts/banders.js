@@ -24,45 +24,42 @@ $(function() {
         e.preventDefault();
     })
 
-        // FUNCTION TO LOAD REPORT
-        function loadReport(path) {
-            let nextURL = null;
-            let previousURL = null;
-            // debugger;
-            $.ajax({
-                url: path,
-                dataType: 'json',
-                success: function (current) {
-                    const report = new Report (current["bander"], current["date"], current["content"], current["birds_of_species"]);
-                    const currentDate = {current_date_slug: report.formatDate().replace(/\s/g, '')};
-                    $.ajax({
-                        type: "POST",
-                        url: '/reports/next_report',
-                        data: currentDate,
-                        success: function (next) {
-                            if (next != null) {
-                                const nextReport = new Report (next["bander"], next["date"], next["content"], next["birds_of_species"]);
-                                nextURL = nextReport.createURL();
-                            }
-                            $.ajax({
-                                type: "POST",
-                                url: '/reports/previous_report',
-                                data: currentDate,
-                                success: function (previous) {
-                                    if (previous != null) {
-                                        const previousReport = new Report (previous["bander"], previous["date"], previous["content"], previous["birds_of_species"]);
-                                        previousURL = previousReport.createURL();
-                                    }
-                                    report.renderReport(nextURL, previousURL);
-                                }
-                            
-                            })
+    // FUNCTION TO LOAD CURRENT REPORT ALONG WITH NEXT AND PREVIOUS REPORTS
+    function loadReport(path) {
+        let nextURL = null;
+        let previousURL = null;
+        $.ajax({
+            url: path,
+            dataType: 'json',
+            success: function (current) {
+                const report = new Report (current["bander"], current["date"], current["content"], current["birds_of_species"]);
+                const currentDate = {current_date_slug: report.formatDate().replace(/\s/g, '')};
+                $.ajax({
+                    type: "POST",
+                    url: '/reports/next_report',
+                    data: currentDate,
+                    success: function (next) {
+                        if (next != null) {
+                            const nextReport = new Report (next["bander"], next["date"], next["content"], next["birds_of_species"]);
+                            nextURL = nextReport.createURL();
                         }
-                    });
-
-                }
-            });
-        };
+                        $.ajax({
+                            type: "POST",
+                            url: '/reports/previous_report',
+                            data: currentDate,
+                            success: function (previous) {
+                                if (previous != null) {
+                                    const previousReport = new Report (previous["bander"], previous["date"], previous["content"], previous["birds_of_species"]);
+                                    previousURL = previousReport.createURL();
+                                }
+                                report.renderReport(nextURL, previousURL);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+    };
 
 
     // CLICK EVENT FOR 'NEXT' LINK
