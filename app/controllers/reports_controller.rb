@@ -18,13 +18,13 @@ skip_before_action :get_report, only: [:new, :create, :index, :posted_reports, :
     def next_report
         report = Report.find_by_date_slug(params["current_date_slug"]);
         next_report = Report.where(:status => "posted").where("date > ?", report.date).first
-        render :json => { date: "#{next_report.date.strftime('%b%d')}" }
+        render :json => next_report if next_report
     end
 
     def previous_report
         report = Report.find_by_date_slug(params["current_date_slug"]);
         previous_report = Report.where(:status => "posted").where("date < ?", report.date).last
-        render :json => { date: "#{previous_report.date.strftime('%b%d')}" }
+        render :json => previous_report if previous_report
     end
 
     def new
