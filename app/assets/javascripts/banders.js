@@ -49,7 +49,6 @@ $(function() {
                                 url: '/reports/previous_report',
                                 data: currentDate,
                                 success: function (previous) {
-                                    debugger;
                                     if (previous != null) {
                                         const previousReport = new Report (previous["bander"], previous["date"], previous["content"], previous["birds_of_species"]);
                                         previousURL = previousReport.createURL();
@@ -68,15 +67,14 @@ $(function() {
 
     // CLICK EVENT FOR 'NEXT' LINK
     $("div.js-body").on("click", ".js-next", function(e){
-
+        loadReport(this.href);
         e.preventDefault();
 
     })
 
     // CLICK EVENT FOR 'PREVIOUS' LINK
     $("div.js-body").on("click", ".js-previous", function(e){
-
-
+        loadReport(this.href);
         e.preventDefault();
 
     })
@@ -106,7 +104,6 @@ $(function() {
         }
 
         renderReport(nextURL, previousURL) {
-            debugger;
             $('.js-body').html(`<a href="#" class="js-return">Return to home page</a><br><br>`)
             $('.js-body').append(`<h1>Report for: <span id="posted_date">${(this.formatDate())}</span></h1>`);
             $('.js-body').append(`<h3>Posted by: ${this.bander.name}</h3>`);
@@ -122,11 +119,11 @@ $(function() {
             
             $('.js-body').append(`</table><br>`);
             if (nextURL != null) {
-                $('.js-body').append(`<p><a href="#" class="js-next">Next Report -></a></p>`);
+                $('.js-body').append(`<p><a href="${nextURL}" class="js-next">Next Report -></a></p>`);
             }
 
             if (previousURL != null) {
-                $('.js-body').append(`<p><a href="#" class="js-previous"><- Previous Report</a></p>`);
+                $('.js-body').append(`<p><a href="${previousURL}" class="js-previous"><- Previous Report</a></p>`);
             }
         }
     }
