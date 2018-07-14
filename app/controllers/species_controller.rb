@@ -1,8 +1,8 @@
 class SpeciesController < ApplicationController
     before_action :login_required
 
-    def find_by_code(code)
-        species = Species.find_by(:code => code)
+    def find_by_code
+        species = Species.find_by(:code => params["code"].upcase)
         render :json => species
     end
 

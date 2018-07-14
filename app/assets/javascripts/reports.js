@@ -1,6 +1,18 @@
 $(function() {
 
-    // REPORTS/ADD_BIRDS.HTML.ERB
+    //EVENT HANDLER FOR AUTOFILL OF SPECIES NAME
+    $("#birds_of_species_species_name").on("focus", function(){
+        const data = {code: $("#birds_of_species_species_code").val()};
+        $.ajax({
+            type: "POST",
+            url: '/species/find_by_code',
+            data: data
+        }).success(function(species){
+            $("#birds_of_species_species_name").val(species["name"]);
+        });
+    });
+
+    // EVENT HANDLER FOR ADD_MORE BUTTON
     $("input[value='Add More']").on("click", function(e) {
         $.ajax({
             type: "POST",
