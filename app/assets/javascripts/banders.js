@@ -24,33 +24,47 @@ $(function() {
         e.preventDefault();
     })
 
-    // FUNCTION TO GET NEXT REPORT URL
-    function getNextURL(data) {
-        $.ajax({
-            type: "POST",
-            url: '/reports/next_report',
-            data: data
-        }).success(function(nextReport){
-            const report = new Report (nextReport["bander"], nextReport["date"], nextReport["content"], nextReport["birds_of_species"]);
-            console.log(report.createURL());
-            return report.createURL();
-        });
-    }
+        // FUNCTION TO LOAD REPORT
+        function loadReport(path) {
+            let nextURL = null;
+            let previousURL = null;
+            // debugger;
+            $.ajax({
+                url: path,
+                dataType: 'json',
+                success: function (current) {
+                    const report = new Report (current["bander"], current["date"], current["content"], current["birds_of_species"]);
+                    const currentDate = {current_date_slug: report.formatDate().replace(/\s/g, '')};
+                    $.ajax({
+                        type: "POST",
+                        url: '/reports/next_report',
+                        data: currentDate,
+                        success: function (next) {
+                            if (next != null) {
+                                const nextReport = new Report (next["bander"], next["date"], next["content"], next["birds_of_species"]);
+                                nextURL = nextReport.createURL();
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: '/reports/previous_report',
+                                data: currentDate,
+                                success: function (previous) {
+                                    debugger;
+                                    if (previous != null) {
+                                        const previousReport = new Report (previous["bander"], previous["date"], previous["content"], previous["birds_of_species"]);
+                                        previousURL = previousReport.createURL();
+                                    }
+                                    report.renderReport(nextURL, previousURL);
+                                }
+                            
+                            })
+                        }
+                    });
 
-    // FUNCTION TO GET PREVIOUS REPORT URL
-    function getPreviousURL(data) {
-        $.ajax({
-            type: "POST",
-            url: '/reports/previous_report',
-            data: data
-        }).success(function(previousDate){
-            if (previousDate != null) {
-                return `/reports/${previousDate["date"]}`;
-            }
-        }).error(function(){
-            return null;
-        });
-    }
+                }
+            });
+        };
+
 
     // CLICK EVENT FOR 'NEXT' LINK
     $("div.js-body").on("click", ".js-next", function(e){
@@ -72,18 +86,6 @@ $(function() {
         location.reload();
     })
 
-    // FUNCTION TO LOAD REPORT
-    function loadReport(path) {
-        $.ajax({
-            url: path,
-            dataType: 'json'
-        }).success(function(json){ 
-            report = new Report (json["bander"], json["date"], json["content"], json["birds_of_species"]);
-            report.renderReport();
-
-        })
-    }
-
 
     // DEFINE REPORT CLASS AND METHODS
     class Report {
@@ -103,33 +105,29 @@ $(function() {
             return '/reports/' + datePortion;
         }
 
-        renderReport() {
-            const data = {current_date_slug: report.formatDate().replace(/\s/g, '')};
-            const nextURL = getNextURL(data);
-            console.log('Next URL:', nextURL);
-
+        renderReport(nextURL, previousURL) {
+            debugger;
             $('.js-body').html(`<a href="#" class="js-return">Return to home page</a><br><br>`)
-            $('.js-body').append(`<h1>Report for: <span id="posted_date">${(report.formatDate())}</span></h1>`);
-            $('.js-body').append(`<h3>Posted by: ${report.bander.name}</h3>`);
-            if(report.content != null) {
-                $('.js-body').append(`<p>${(report.content)}</p>`);
+            $('.js-body').append(`<h1>Report for: <span id="posted_date">${(this.formatDate())}</span></h1>`);
+            $('.js-body').append(`<h3>Posted by: ${this.bander.name}</h3>`);
+            if(this.content != null) {
+                $('.js-body').append(`<p>${(this.content)}</p>`);
             }
             $('.js-body').append(`<h2>Birds Banded:</h2>`);
             $('.js-body').append(`<table class="display"><tr id="header_row"><th>Alpha Code</th><th>Species Name</th><th>Number Banded</th></tr>`);
 
-            report.birdsOfSpecies.forEach(function(bos){
+            this.birdsOfSpecies.forEach(function(bos){
                 $('table.display').append(`<tr><td>${(bos["species"]["code"])}</td><td>${(bos["species"]["name"])}</td><td>${(bos["number_banded"])}</td></tr>`);
             })
             
             $('.js-body').append(`</table><br>`);
-            // const previousURL = getPreviousURL(data);
             if (nextURL != null) {
                 $('.js-body').append(`<p><a href="#" class="js-next">Next Report -></a></p>`);
             }
 
-            // if (previousURL != null) {
-            //     $('.js-body').append(`<p><a href="#" class="js-previous"><- Previous Report</a></p>`);
-            // }
+            if (previousURL != null) {
+                $('.js-body').append(`<p><a href="#" class="js-previous"><- Previous Report</a></p>`);
+            }
         }
     }
 });
