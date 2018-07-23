@@ -28,12 +28,14 @@ $(function() {
     function loadReport(path) {
         let nextURL = null;
         let previousURL = null;
+        //RETRIEVE THE CURRENT REPORT
         $.ajax({
             url: path,
             dataType: 'json',
             success: function (current) {
                 const report = new Report (current["bander"], current["date"], current["content"], current["birds_of_species"]);
                 const currentDate = {current_date_slug: report.formatDate().replace(/\s/g, '')};
+                // RETRIEVE THE NEXT REPORT AND, IF IT EXISTS, CREATE THE URL
                 $.ajax({
                     type: "POST",
                     url: '/reports/next_report',
@@ -43,7 +45,8 @@ $(function() {
                             const nextReport = new Report (next["bander"], next["date"], next["content"], next["birds_of_species"]);
                             nextURL = nextReport.createURL();
                         }
-                        $.ajax({
+                    // RETRIEVE THE PREVIOUS REPORT AND, IF IT EXISTS, CREATE THE URL
+                    $.ajax({
                             type: "POST",
                             url: '/reports/previous_report',
                             data: currentDate,
